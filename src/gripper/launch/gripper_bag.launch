@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+  <node
+    pkg="rosbag"
+    type="record"
+    name="record"
+    args="-o /home/cmuboost/bagfiles/gripper /load_cell /stalk_dia_msg /stalk_presence_msg"
+    output = "screen"
+  />
+
+</launch>

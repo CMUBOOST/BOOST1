@@ -1,0 +1,5 @@
+string alpha_centroid_req
+---
+float32 alpha_centroid_resp_x
+float32 alpha_centroid_resp_y
+float32 alpha_centroid_resp_z

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- Launch hebi teleop node -->
+  	<node pkg="hebi" name="kdc_arm_node" type="kdc_arm_node">
+  		<param name="publish_frequency" value="50" />
+  	</node>
+
+	<node name="cylinder_servo_node6" pkg="hebi" type="cylinder_servo_node6" output="screen">
+		<!--param name="cameraTopic" type="string" value="/kdc/camera_point" /-->
+		<!--param name="boardTopic" type="string" value="/kdc/board_point" /-->
+		<param name="jointTopic" type="string" value="/joint_states" />
+	</node >
+
+
+</launch>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- Launch stereo_image_proc to rectify image -->
+	<node ns="duo3d_camera" pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" output="screen"/>
+
+
+	<!-- Launch cylinder segmentation -->
+	<node pkg="cylinder_segmentation" name="cylinder_tracking7" type="cylinder_tracking7" output="screen"/>
+
+ 	 <!-- urdf xml robot description loaded on the Parameter Server-->
+ 	 <param name="robot_description" textfile="$(find boost_urdf)/robots/boost_stalker.urdf" />
+ 
+	  <!-- robot visualization -->
+<!-- 	<node name="rviz" pkg="rviz" type="rviz" required="true" /> -->
+	 
+	  <!-- publish all the frames to TF -->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+		<param name="publish_frequency" value="50"/> <!-- Hz -->
+	</node>
+
+	<!-- publish DUO3D TF to rest of robot -->
+	<node pkg="tf" type="static_transform_publisher" name="duotf_static_broadcaster" args="0.29 0.015 0 -1.57 -1.57 -1.57 arm_pan2_link duo3d_camera 15" />
+
+	<!-- publish base_link rotated pi radians about the z axis for Merritt's lazy ass -->
+<!-- 	<node pkg="tf" type="static_transform_publisher" name="base_link_rotated_tf_static_broadcaster" args="0 0 0 3.14 0 0 base_link_x_flipped base_link 33" /> -->
+	<node pkg="tf" type="static_transform_publisher" name="another_rotated_tf_static_broadcaster" args="-0.1695 0 0.44835 3.14 0 0 base_link topPlate_pan1_link 15" />
+
+	<!-- publish TF between DUO3D and the board1 tf produced by ar_sys -->
+	<node pkg="kdc_arm_tf2" type="cylinder_to_tf2" name="cylinder_to_tf2" /> 
+
+	<!-- publish camera and board points relative to base_link -->
+	<node pkg="kdc_arm_tf2" type="cylinder_pose_publisher" name="cylinder_pose_publisher" output="screen"/>
+
+	<!-- publish TFs for RVIZ -->
+	<!--node pkg="tf" type="static_transform_publisher" name="map_to_duocamera" args="0 0 0 0 0 0 map duo3d_camera 100" /-->
+	<!--node pkg="tf" type="static_transform_publisher" name="map_to_pointcloudlink" args="0 0 0 0 0 0 map point_cloud_link 100" /-->
+	<node pkg="tf" type="static_transform_publisher" name="map_to_pointcloudlink" args="0 0 0 0 0 0 duo3d_camera point_cloud_link 100" />
+
+</launch>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- Start node that converts ticks to pounds  -->
+	<node pkg="top_executive" type="executive_node_stitch" name="executive_node_stitch" output="screen"/>
+
+	<!-- Start node that converts ticks to pounds  -->
+	<node pkg="image_stitch" type="stitcher9" name="stitcher9" output="screen"/>
+
+	<!-- Start node that records peak loads  -->
+	<node pkg="image_stitch" type="move_base3" name="move_base3" output="screen"/>
+
+</launch>
