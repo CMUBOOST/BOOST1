@@ -136,38 +136,11 @@ include_directories(
 #  include/image_stitch/Vec3.h
 #)
 
-add_executable(move_base src/move_base.cpp)
-target_link_libraries(move_base ${catkin_LIBRARIES})
-
-add_executable(move_base3 src/move_base3.cpp)
-target_link_libraries(move_base3 ${catkin_LIBRARIES})
-
-add_executable(move_base4 src/move_base4.cpp)
-target_link_libraries(move_base4 ${catkin_LIBRARIES})
-
 add_executable(move_base5 src/move_base5.cpp)
 target_link_libraries(move_base5 ${catkin_LIBRARIES})
 
 add_executable(move_base6 src/move_base6.cpp)
 target_link_libraries(move_base6 ${catkin_LIBRARIES})
-
-#add_executable(stitcher src/stitcher.cpp)
-#target_link_libraries(stitcher ${catkin_LIBRARIES})
-
-#add_executable(stitcher2 src/stitcher2.cpp)
-#target_link_libraries(stitcher2 ${catkin_LIBRARIES})
-
-#add_executable(stitcher4 src/stitcher4.cpp)
-#target_link_libraries(stitcher4 ${catkin_LIBRARIES} ${OpenCV_LIBS})
-
-add_executable(stitcher5 src/stitcher5.cpp)
-target_link_libraries(stitcher5 ${catkin_LIBRARIES} ${OpenCV_LIBS})
-
-add_executable(stitcher6_simple src/stitcher6_simple.cpp)
-target_link_libraries(stitcher6_simple ${catkin_LIBRARIES} ${OpenCV_LIBS})
-
-add_executable(stitcher9 src/stitcher9.cpp)
-target_link_libraries(stitcher9 ${catkin_LIBRARIES} ${OpenCV_LIBS})
 
 add_executable(stitcher10 src/stitcher10.cpp)
 target_link_libraries(stitcher10 ${catkin_LIBRARIES} ${OpenCV_LIBS})
@@ -189,68 +162,3 @@ target_link_libraries(basic_shapes ${catkin_LIBRARIES})
 
 add_executable(tf_broadcaster src/tf_broadcaster.cpp)
 target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
-
-## Add cmake target dependencies of the library
-## as an example, code may need to be generated before libraries
-## either from message generation or dynamic reconfigure
-# add_dependencies(image_stitch ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
-## Declare a C++ executable
-# add_executable(image_stitch_node src/image_stitch_node.cpp)
-
-## Add cmake target dependencies of the executable
-## same as for the library above
-# add_dependencies(image_stitch_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
-## Specify libraries to link a library or executable target against
-# target_link_libraries(image_stitch_node
-#   ${catkin_LIBRARIES}
-# )
-
-#############
-## Install ##
-#############
-
-# all install targets should use catkin DESTINATION variables
-# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
-
-## Mark executable scripts (Python etc.) for installation
-## in contrast to setup.py, you can choose the destination
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
-
-## Mark executables and/or libraries for installation
-# install(TARGETS image_stitch image_stitch_node
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
-
-## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
-
-## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
-#   # myfile1
-#   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
-
-#############
-## Testing ##
-#############
-
-## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_image_stitch.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
-
-## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)

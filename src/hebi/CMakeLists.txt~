@@ -202,43 +202,9 @@ src/cylinder_reverse_node5.cpp
 #src/kdc_servo.cpp
 )
 
-#set(ERROR_NODE_HEADER_FILES
-#src/kdc_servo.h
-#)
-
-#add_executable(kdc_servo_node ${ERROR_NODE_SOURCE_FILES} ${ERROR_NODE_HEADER_FILES})
-
-add_executable(cylinder_servo_node4 ${ERROR_NODE_SOURCE_FILES_CYLINDER3} $<TARGET_OBJECTS:hebi_cpp_lib>)
-add_dependencies(cylinder_servo_node4 hebi_generate_messages_cpp)
-target_link_libraries(cylinder_servo_node4 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
-
-add_executable(cylinder_servo_node3 ${ERROR_NODE_SOURCE_FILES_CYLINDER3} $<TARGET_OBJECTS:hebi_cpp_lib>)
-add_dependencies(cylinder_servo_node3 hebi_generate_messages_cpp)
-target_link_libraries(cylinder_servo_node3 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
-
-#add_executable(cylinder_reverse_node3 ${ERROR_NODE_SOURCE_FILES_CYLINDER_REVERSE3} $<TARGET_OBJECTS:hebi_cpp_lib>)
-#add_dependencies(cylinder_reverse_node3 hebi_generate_messages_cpp)
-#target_link_libraries(cylinder_reverse_node3 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
-
-#add_executable(cylinder_reverse_node4 ${ERROR_NODE_SOURCE_FILES_CYLINDER_REVERSE4} $<TARGET_OBJECTS:hebi_cpp_lib>)
-#add_dependencies(cylinder_reverse_node4 hebi_generate_messages_cpp)
-#target_link_libraries(cylinder_reverse_node4 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
-
 add_executable(cylinder_reverse_node5 ${ERROR_NODE_SOURCE_FILES_CYLINDER_REVERSE5} $<TARGET_OBJECTS:hebi_cpp_lib>)
 add_dependencies(cylinder_reverse_node5 hebi_generate_messages_cpp)
 target_link_libraries(cylinder_reverse_node5 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
-
-add_executable(arm_config_service_node src/arm_config_service_node.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
-add_dependencies(arm_config_service_node hebi_generate_messages_cpp)
-target_link_libraries(arm_config_service_node ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
-
-add_executable(arm_config_service_node2 src/arm_config_service_node2.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
-add_dependencies(arm_config_service_node2 hebi_generate_messages_cpp)
-target_link_libraries(arm_config_service_node2 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
-
-add_executable(arm_config_service_node3 src/arm_config_service_node3.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
-add_dependencies(arm_config_service_node3 hebi_generate_messages_cpp)
-target_link_libraries(arm_config_service_node3 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
 
 add_executable(arm_config_service_node4 src/arm_config_service_node4.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
 add_dependencies(arm_config_service_node4 hebi_generate_messages_cpp)
@@ -247,14 +213,6 @@ target_link_libraries(arm_config_service_node4 ${catkin_LIBRARIES} ${CMAKE_CURRE
 add_executable(arm_config_service_node5 src/arm_config_service_node5.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
 add_dependencies(arm_config_service_node5 hebi_generate_messages_cpp)
 target_link_libraries(arm_config_service_node5 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
-
-add_executable(alpha_centroid src/alpha_centroid.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
-add_dependencies(alpha_centroid hebi_generate_messages_cpp)
-target_link_libraries(alpha_centroid ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
-
-add_executable(alpha_centroid2 src/alpha_centroid2.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
-add_dependencies(alpha_centroid2 hebi_generate_messages_cpp)
-target_link_libraries(alpha_centroid2 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
 
 add_executable(alpha_centroid3 src/alpha_centroid3.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
 add_dependencies(alpha_centroid3 hebi_generate_messages_cpp)

@@ -63,10 +63,6 @@ set_target_properties(EposCmd PROPERTIES LINKER_LANGUAGE CXX)
 target_link_libraries(ftd2xx EposCmd) 
 
 ###add_executable(duo_node src/duo.cpp src/main.cpp src/dense3d.cpp)
-add_executable(gripper_node src/gripper.cpp)
-add_executable(gripper_node2 src/gripper2.cpp)
-add_executable(gripper_node3 src/gripper3.cpp)
-add_executable(gripper_node4 src/gripper4.cpp)
 add_executable(gripper_node5 src/gripper5.cpp)
 add_executable(gripper_node6 src/gripper6.cpp)
 add_executable(gripper_close src/gripperClose.cpp)
@@ -75,15 +71,8 @@ add_executable(gripper_debug src/gripper_debug.cpp)
 add_executable(load_cell_ticksToPounds src/load_cell_ticksToPounds.cpp)
 #add_executable(dense3d src/duo_dense3d.cpp)
 
-target_link_libraries(gripper_node ftd2xx) 
-target_link_libraries(gripper_node2 ftd2xx) 
-target_link_libraries(gripper_node3 ftd2xx) 
-target_link_libraries(gripper_node2 ${catkin_LIBRARIES})
-target_link_libraries(gripper_node3 ${catkin_LIBRARIES})
 target_link_libraries(gripper_debug ftd2xx) 
 target_link_libraries(gripper_debug ${catkin_LIBRARIES})
-target_link_libraries(gripper_node4 ftd2xx) 
-target_link_libraries(gripper_node4 ${catkin_LIBRARIES})
 target_link_libraries(gripper_node5 ftd2xx) 
 target_link_libraries(gripper_node5 ${catkin_LIBRARIES})
 target_link_libraries(gripper_node6 ftd2xx) 
@@ -119,9 +108,6 @@ install(PROGRAMS
 install(FILES 90-ftd2xx.rules
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
-
-
-
 
 #add_dependencies(gripper_node ${PROJECT_NAME}_gencfg)
 
