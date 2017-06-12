@@ -57,6 +57,7 @@ public:
 	{
 		pub_ = n_.advertise<geometry_msgs::PointStamped>("/kdc/board_point_alpha", 1);
 		sub_ = n_.subscribe("/kdc/board_point", 1, &SubscribeAndPublish::callback, this);
+		//sub_ = n_.subscribe("/duo3d_camera/points_centroid", 1, &SubscribeAndPublish::callback, this);
         sub_joint_ = n_.subscribe("/joint_states", 1, &SubscribeAndPublish::jointStateCallback, this);
 	}
 
@@ -115,6 +116,7 @@ bool alphaService(hebi::AlphaCentroid::Request  &req,
 
     ROS_DEBUG_STREAM("Instantiated the class");
 
+    
     ros::Publisher publish;
     publish = nh.advertise<sensor_msgs::JointState>("joint_commands", 1);
     sensor_msgs::JointState jointActuate;
@@ -145,6 +147,7 @@ bool alphaService(hebi::AlphaCentroid::Request  &req,
     for (n=0; n<(centroidCounter); n++)
     {
         std::cout << c_tracker[n].x << "," << c_tracker[n].y << std::endl;
+       
 
         /*
         if (req.alpha_centroid_req == "left" && c_tracker[n].y < -minLimit && c_tracker[n].y > -maxLimit)
@@ -162,7 +165,7 @@ bool alphaService(hebi::AlphaCentroid::Request  &req,
             trueCounter++;
         }
         */
-
+    
         if ((pow(c_tracker[n].x,2) + pow(c_tracker[n].y,2)) < pow(armLengthLimit,2))
         {
             truePoints.push_back(alpha());
@@ -228,7 +231,7 @@ bool alphaService(hebi::AlphaCentroid::Request  &req,
     res.alpha_centroid_resp_z = z_loc;
     res.alpha_centroid_num_inliers = max_inliers;
 
-    ROS_DEBUG_STREAM("sending back response: " << res.alpha_centroid_resp_x);
+    ROS_INFO_STREAM("sending back response: " << res.alpha_centroid_resp_x);
     //------------------------------End of Calculating Inliers and Optimal Point---------------------------
 
 
@@ -252,6 +255,7 @@ bool alphaService(hebi::AlphaCentroid::Request  &req,
     x_loc = 0;
     y_loc = 0;
     z_loc = 0;
+    
 
     return true;
 }

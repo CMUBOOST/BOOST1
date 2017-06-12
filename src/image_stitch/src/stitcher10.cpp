@@ -1051,7 +1051,7 @@ int main(int argc, char** argv)
 
   	typedef sync_policies::ApproximateTime<nav_msgs::Odometry, sensor_msgs::PointCloud2> MySyncPolicy;
 
-  	Synchronizer<MySyncPolicy> sync(MySyncPolicy(5), odomSub, cloudSub);
+  	Synchronizer<MySyncPolicy> sync(MySyncPolicy(20), odomSub, cloudSub);
   	sync.registerCallback(boost::bind(&Stitch::callback, pStitch, _1, _2));
 
 	ros::spin();

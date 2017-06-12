@@ -1,16 +1,123 @@
 <?xml version="1.0"?>
 <launch>
+    
+	
+	<!-- Launch DUO -->
+	<!--
+    <node pkg="duo3d_ros" name="duo_node" type="duo_node" required="true" output="screen">
+		<param name="device_name" 		value="Mini-lx" />
+		<param name="device_serial_number" 	value="N-A" />
+
+    	<param name="frame_id"   value="duo3d_camera" />
+		
+		<param name="FPS"   value="35" />
+
+		<param name="resolution_width"	value="752" />
+		<param name="resolution_height"	value="480" />
+
+		<param name="exposure"		value="15"  />
+		<param name="gain"		value="1"  /> 
+		<param name="LED"		value="100"  />
+
+	    <param name="use_DUO_imu"   	value="false" />
+	    <param name="use_DUO_LEDs"   	value="true" />
+
+	    <param name="camera_info_left" value="file://$(find duo3d_ros)/calibration/duo3d_left.yaml" />
+	    <param name="camera_info_right" value="file://$(find duo3d_ros)/calibration/duo3d_right.yaml" />
+    </node>
+	-->
+
+	<!-- Launch stereo_image_proc to rectify image -->
+	<!--node ns="duo3d_camera" pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" output="screen"/-->
+
+	<!-- Launch cylinder segmentation -->
+	<!--node pkg="cylinder_segmentation" name="cylinder_tracking7" type="cylinder_tracking7" output="screen"/-->
+
 
 	<!-- Launch hebi teleop node -->
   	<node pkg="hebi" name="kdc_arm_node" type="kdc_arm_node">
   		<param name="publish_frequency" value="50" />
   	</node>
 
+ 	 <!-- urdf xml robot description loaded on the Parameter Server-->
+ 	 <param name="robot_description" textfile="$(find boost_urdf)/robots/boost_stalker.urdf" />
+
+	  <!-- robot visualization -->
+<!-- 	<node name="rviz" pkg="rviz" type="rviz" required="true" /> -->
+	 
+	  <!-- publish all the frames to TF -->
+	<!--node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"-->
+		<!--param name="publish_frequency" value="50"/--> <!-- Hz -->
+	<!--/node-->
+
+	<!-- publish DUO3D TF to rest of robot -->
+	<node pkg="tf" type="static_transform_publisher" name="duotf_static_broadcaster" args="0.245 0.015 0 -1.57 -1.57 -1.57 arm_pan2_link duo3d_camera 15" />
+
+	<!-- publish base_link rotated pi radians about the z axis for Merritt's lazy ass -->
+<!-- 	<node pkg="tf" type="static_transform_publisher" name="base_link_rotated_tf_static_broadcaster" args="0 0 0 3.14 0 0 base_link_x_flipped base_link 33" /> -->
+	<node pkg="tf" type="static_transform_publisher" name="another_rotated_tf_static_broadcaster" args="-0.1695 0 0.44835 3.14 0 0 base_link topPlate_pan1_link 15" />
+
+	<!-- publish TF between DUO3D and the board1 tf produced by ar_sys -->
+	<!--node pkg="kdc_arm_tf2" type="cylinder_to_tf2" name="cylinder_to_tf2" /--> 
+
+	<!-- publish camera and board points relative to base_link -->
+	<!--node pkg="kdc_arm_tf2" type="cylinder_pose_publisher" name="cylinder_pose_publisher" output="screen"/-->
+
+	<!-- start up the executive -->
+	<node pkg="arm_executive" type="arm_executive_node4" name="arm_executive_node4" output="screen"/>
+
+	<!-- start up the service node to configure the arm -->
+	<node pkg="hebi" type="arm_config_service_node5" name="arm_config_service_node5" output="screen"/>
+
+	<node pkg="hebi" type="alpha_centroid3" name="alpha_centroid3" output="screen"/>
+
+	<node pkg="automatic_exposure" type="automatic_exposure" name="automatic_exposure" output="screen"/>
+
 	<node name="cylinder_servo_node6" pkg="hebi" type="cylinder_servo_node6" output="screen">
 		<!--param name="cameraTopic" type="string" value="/kdc/camera_point" /-->
 		<!--param name="boardTopic" type="string" value="/kdc/board_point" /-->
 		<param name="jointTopic" type="string" value="/joint_states" />
-	</node >
+	</node>
 
+	<!--  Insert gripper_node5 call  -->
+	<!--
+	<node pkg="gripper" type="gripper_node6" name="gripper_node6" output="screen"/>
+
+	<node pkg="gripper" type="gripper_close" name="gripper_close" output="screen"/>
+
+	<node pkg="gripper" type="gripper_open" name="gripper_open" output="screen"/>
+	-->
+
+	<!-- start up the service node to reverse the arm -->
+	<!--node pkg="hebi" type="cylinder_reverse_node5" name="cylinder_reverse_node5" output="screen"/-->
+
+	<!-- publish TFs for RVIZ -->
+	<!--node pkg="tf" type="static_transform_publisher" name="map_to_pointcloudlink" args="0 0 0 0 0 0 duo3d_camera point_cloud_link 100" /-->
+
+	<!-- Start the serial node for reading force sensor -->
+	<!--
+	<node pkg="rosserial_python" type="serial_node.py" name="serial_node">
+	  <param name="port" value="/dev/ttyACM0"/>
+	  <param name="baud" value="115200"/>
+	</node>
+	-->
+
+	<!-- Start node that converts ticks to pounds  -->
+	<!--node pkg="gripper" type="load_cell_ticksToPounds" name="load_cell_ticksToPounds" output="screen"/-->
+
+	<!-- Start node that records peak loads  -->
+	<!--node pkg="data_recording" type="peak_logging2" name="peak_logging2" output="screen"/-->
+
+	<!-- Bag the data! -->
+ 	<!--node pkg="rosbag" type="record" name="record"
+       args="record -o /home/boost-1/bagfiles /duo3d_camera/right/camera_info /duo3d_camera/left/camera_info /duo3d_camera/right/image_raw /duo3d_camera/left/image_raw /load_cell /load_cell_pounds"
+	/-->
+
+
+	<node pkg="tf" type="static_transform_publisher" name="multisense_tf_static_broadcaster" args="-.09 .52 -.065 0 -1.57 -1.57 top_plate_link multisense/head 50" />  <!--[offset along robot travel axis, height from top plate, offset along camera z] -->
+
+	<node pkg="tf" type="static_transform_publisher" name="multisense_left_camera_tf_static_broadcaster" args="0.052 0.035 0 0 0 0 multisense/head multisense/left_camera_frame 50" />
+
+	<node pkg="tf" type="static_transform_publisher" name="multisense_left_optical_tf_static_broadcaster" args="0 0 0 -1.57079632679 0.0 -1.57079632679 multisense/left_camera_frame multisense/left_camera_optical_frame 50" />
 
 </launch>

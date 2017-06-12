@@ -30,9 +30,9 @@ int main(int argc, char** argv){
   while (node.ok()){
 
     try{
-      ros::Time now = ros::Time::now();
+      ros::Time now = ros::Time(0); //::now(); //Changed 6/9/17
       transformStampedCamera = tfBuffer.lookupTransform("topPlate_pan1_link", "duo3d_camera",
-                               now, ros::Duration(3.0));
+                               now, ros::Duration(5.0)); 
     }
     catch (tf2::TransformException &ex) {
       ROS_WARN("%s",ex.what());
@@ -42,7 +42,7 @@ int main(int argc, char** argv){
     try{
       ros::Time now = ros::Time::now();
       transformStampedBoard = tfBuffer.lookupTransform("topPlate_pan1_link", "board1",
-                               now, ros::Duration(3.0));
+                               now, ros::Duration(5.0));
     }
     catch (tf2::TransformException &ex) {
       ROS_WARN("%s",ex.what());

@@ -360,6 +360,7 @@
     <axis
       xyz="0 0 0" />
   </joint>
+
   <link
     name="top_plate_link">
     <inertial>
@@ -385,8 +386,10 @@
       </geometry>
       <material
         name="">
+        <!--color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" /-->
         <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+          rgba="1 0 0 1" />
       </material>
     </visual>
     <collision>
@@ -412,6 +415,7 @@
     <axis
       xyz="0 0 0" />
   </joint>
+
   <link
     name="t_vistor_mount_link">
     <inertial>
@@ -611,6 +615,7 @@
       </geometry>
     </collision>
   </link>
+
   <joint
     name="front_camera_mount_joint"
     type="fixed">
@@ -664,6 +669,7 @@
       </geometry>
     </collision>
   </link>
+
   <joint
     name="front_camera_joint"
     type="fixed">
@@ -730,6 +736,7 @@
     <axis
       xyz="0 0 0" />
   </joint>
+
   <link
     name="arm_carriage_link">
     <inertial>
@@ -785,6 +792,7 @@
     <limit effort="400.0" lower="-1" upper="0" velocity="0.1" />
     <dynamics damping="100.0" />
   </joint>
+
   <link
     name="arm_pan1_link">
     <inertial>
@@ -812,7 +820,7 @@
       <material
         name="">
         <color
-          rgba="0.890196078431373 0.909803921568627 0.925490196078431 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
@@ -843,6 +851,7 @@
       xyz="0 1 0" />
     <limit effort="25" lower="-2" upper="2.27" velocity="2.27" />
   </joint>
+
   <link
     name="arm_pan2_link">
     <inertial>
@@ -901,6 +910,7 @@
       xyz="0 1 0" />
     <limit effort="25" lower="-2" upper="2.27" velocity="2.27" />
   </joint>
+
   <link
     name="right_finger_link">
     <inertial>
@@ -928,7 +938,7 @@
       <material
         name="">
         <color
-          rgba="0.286274509803922 0.662745098039216 0.329411764705882 1" />
+          rgba="1 0 0 1" />
       </material>
     </visual>
     <collision>
@@ -955,6 +965,7 @@
       xyz="0 1 0" />
         <limit effort="25" lower="-2" upper="2.27" velocity="2.27" />
   </joint>
+
   <link
     name="left_finger_link">
     <inertial>
@@ -982,7 +993,7 @@
       <material
         name="">
         <color
-          rgba="0.286274509803922 0.662745098039216 0.329411764705882 1" />
+          rgba="1 0 0 1" />
       </material>
     </visual>
     <collision>
@@ -1009,6 +1020,7 @@
       xyz="0 -1 0" />
     <limit effort="25" lower="-2" upper="2.27" velocity="2.27" />
   </joint>
+
   <link
     name="GPS_mount_link">
     <inertial>
@@ -1062,6 +1074,7 @@
     <axis
       xyz="0 0 0" />
   </joint>
+
   <link
     name="GPS_link">
     <inertial>
@@ -1115,6 +1128,7 @@
     <axis
       xyz="0 0 0" />
   </joint>
+
   <link
     name="rear_camera_pivot_link">
     <inertial>
@@ -1433,6 +1447,7 @@
     <axis
       xyz="0 0 0" />
   </joint>
+
   <link
     name="buttons_link">
     <inertial>
@@ -1486,4 +1501,81 @@
     <axis
       xyz="0 0 0" />
   </joint>
-</robot>
+
+
+  <link
+    name="multisense/head">
+    <visual>
+      <origin
+        xyz="-0.03 -0.0625 -0.032" 
+        rpy="1.57079632679 0 1.57079632679" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/multisense.DAE" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/multisense.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="multisense_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="top_plate_link" />
+    <child
+      link="multisense/head" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+
+	<!--
+	<joint name="$multisense/left_camera_joint" type="fixed">
+		<origin xyz="0.052 0.035 0.0"/>
+		<parent link="$multisense/head"/>
+		<child link="$multisense/left_camera_frame"/>
+	</joint>
+
+	<link name="$multisense/left_camera_frame"/>
+
+	<joint name="$multisense/right_camera_joint" type="fixed">
+		<origin xyz="0.052 -0.035 0.0"/>
+		<parent link="$multisense/head"/>
+		<child link="$multisense/right_camera_frame"/>w
+	</joint>
+
+	<link name="$multisense/right_camera_frame"/>
+
+	<joint name="$multisense/left_camera_optical_joint" type="fixed">
+		<origin xyz="0 0 0" rpy="-1.57079632679 0.0 -1.57079632679"/>
+		<parent link="$multisense/left_camera_frame"/>
+		<child link="$multisense/left_camera_optical_frame"/>
+	</joint>
+
+	<link name="$multisense/left_camera_optical_frame"/>
+
+	<joint name="$multisense/right_camera_optical_joint" type="fixed">
+		<origin xyz="0 0 0" rpy="-1.57079632679 0.0 -1.57079632679"/>
+		<parent link="$multisense/right_camera_frame"/>
+		<child link="$multisense/right_camera_optical_frame"/>
+	</joint>
+
+	<link name="$multisense/right_camera_optical_frame"/>
+	-->
+
+</robot>"

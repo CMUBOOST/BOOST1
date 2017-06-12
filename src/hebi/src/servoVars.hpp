@@ -3,7 +3,7 @@
     //AlphaCentroid
     //Limit to the length of the arm when choosing alpha centroid
     float armLengthLimit = 0.58; //it's actually 0.584, but I don't want the arm fully extended
-    const int num_centroids = 50; //number of centroids captured
+    const int num_centroids = 30; //number of centroids captured
 
     //arm_config and cylinder_reverse
     //Positioning of the arm in left and right configurations

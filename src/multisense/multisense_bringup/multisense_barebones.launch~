@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<launch>
+
+  <!-- Valid Sensor types are SL, S7, S7S, S21, and BCAM -->
+
+  <arg name="ip_address" default="192.168.0.9" />
+  <arg name="namespace"  default="multisense" />
+  <arg name="mtu"        default="7200" />
+  <arg name="sensor"     default="S7" />
+  <arg name="launch_robot_state_publisher" default="true" />
+
+  <!-- ROS Driver -->
+   <node pkg="multisense_ros" ns="$(arg namespace)" type="ros_driver" name="$(arg namespace)_driver" output="screen">
+     <param name="sensor_ip"   value="$(arg ip_address)" />
+     <param name="sensor_mtu"  value="$(arg mtu)" />
+     <param name="tf_prefix"  value="$(arg namespace)" />
+  </node>
+
+</launch>

@@ -56,9 +56,9 @@
 
 
 	<!-- Launch hebi teleop node -->
-  	<!--node pkg="hebi" name="kdc_arm_node" type="kdc_arm_node"-->
-  		<!--param name="publish_frequency" value="50" /-->
-  	<!--/node-->
+  	<node pkg="hebi" name="kdc_arm_node" type="kdc_arm_node">
+  		<param name="publish_frequency" value="50" />
+  	</node>
 
  	 <!-- urdf xml robot description loaded on the Parameter Server-->
  	 <param name="robot_description" textfile="$(find boost_urdf)/robots/boost_stalker.urdf" />
@@ -133,5 +133,11 @@
        args="record -o /home/boost-1/bagfiles /duo3d_camera/right/camera_info /duo3d_camera/left/camera_info /duo3d_camera/right/image_raw /duo3d_camera/left/image_raw /load_cell /load_cell_pounds"
 	/-->
 
+
+	<node pkg="tf" type="static_transform_publisher" name="multisense_tf_static_broadcaster" args="-.09 .52 -.065 0 -1.57 -1.57 top_plate_link multisense/head 50" />  <!--[offset along robot travel axis, height from top plate, offset along camera z] -->
+
+	<node pkg="tf" type="static_transform_publisher" name="multisense_left_camera_tf_static_broadcaster" args="0.052 0.035 0 0 0 0 multisense/head multisense/left_camera_frame 50" />
+
+	<node pkg="tf" type="static_transform_publisher" name="multisense_left_optical_tf_static_broadcaster" args="0 0 0 -1.57079632679 0.0 -1.57079632679 multisense/left_camera_frame multisense/left_camera_optical_frame 50" />
 
 </launch>

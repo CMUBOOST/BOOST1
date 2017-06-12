@@ -260,6 +260,10 @@ add_executable(alpha_centroid3 src/alpha_centroid3.cpp $<TARGET_OBJECTS:hebi_cpp
 add_dependencies(alpha_centroid3 hebi_generate_messages_cpp)
 target_link_libraries(alpha_centroid3 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
 
+add_executable(alpha_centroid_image_stitch src/alpha_centroid_image_stitch.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
+add_dependencies(alpha_centroid_image_stitch hebi_generate_messages_cpp)
+target_link_libraries(alpha_centroid_image_stitch ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
+
 add_executable(cylinder_servo_node5 src/cylinder_servo_node5.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
 add_dependencies(cylinder_servo_node5 hebi_generate_messages_cpp)
 target_link_libraries(cylinder_servo_node5 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)

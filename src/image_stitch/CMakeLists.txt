@@ -64,6 +64,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_service_files(
   FILES
   CloudStitch.srv
+  AlphaCentroid.srv
 #   Service2.srv
 )
 
@@ -147,6 +148,9 @@ target_link_libraries(move_base4 ${catkin_LIBRARIES})
 add_executable(move_base5 src/move_base5.cpp)
 target_link_libraries(move_base5 ${catkin_LIBRARIES})
 
+add_executable(move_base6 src/move_base6.cpp)
+target_link_libraries(move_base6 ${catkin_LIBRARIES})
+
 #add_executable(stitcher src/stitcher.cpp)
 #target_link_libraries(stitcher ${catkin_LIBRARIES})
 
@@ -168,6 +172,12 @@ target_link_libraries(stitcher9 ${catkin_LIBRARIES} ${OpenCV_LIBS})
 add_executable(stitcher10 src/stitcher10.cpp)
 target_link_libraries(stitcher10 ${catkin_LIBRARIES} ${OpenCV_LIBS})
 
+add_executable(stitcher11 src/stitcher11.cpp)
+target_link_libraries(stitcher11 ${catkin_LIBRARIES} ${OpenCV_LIBS})
+
+add_executable(stitcher12 src/stitcher12.cpp)
+target_link_libraries(stitcher12 ${catkin_LIBRARIES} ${OpenCV_LIBS})
+
 add_executable(stitcher_why src/stitcher_why.cpp)
 target_link_libraries(stitcher_why ${catkin_LIBRARIES} ${OpenCV_LIBS})
 
@@ -176,6 +186,9 @@ target_link_libraries(slow_down ${catkin_LIBRARIES})
 
 add_executable(basic_shapes src/basic_shapes.cpp)
 target_link_libraries(basic_shapes ${catkin_LIBRARIES})
+
+add_executable(tf_broadcaster src/tf_broadcaster.cpp)
+target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries

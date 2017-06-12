@@ -1,15 +1,8 @@
 <?xml version="1.0"?>
 <launch>
 
-	<!-- Valid Sensor types are SL, S7, S7S, S21, and BCAM -->
-
-	<arg name="ip_address" default="192.168.0.9" />
-	<arg name="namespace"  default="multisense" />
-	<arg name="mtu"        default="7200" />
-	<arg name="sensor"     default="S7" />
-	<arg name="launch_robot_state_publisher" default="true" />
-
 	<!-- Robot state publisher -->
+	<!--
 	<group if = "$(arg launch_robot_state_publisher)">
 	<param name="robot_description"
 		  command="$(find xacro)/xacro.py '$(find multisense_description)/urdf/multisense$(arg sensor)/standalone.urdf.xacro' name:=$(arg namespace)"/>
@@ -18,21 +11,79 @@
 	  <remap from="joint_states" to="/$(arg namespace)/joint_states" />
 	</node>
 	</group>
+	-->
 
-	<!-- ROS Driver -->
+
+
+	<!-- ***********************TOP LEVEL EXECUTIVE*********************** -->
+	<!-- Node that integrates all in the executive  -->
+	<!--node pkg="top_executive" type="executive_node_stitch" name="executive_node_stitch" output="screen"/-->
+
+
+
+	<!-- ***********************BASE MOVEMENT AND CAMERA OPERATION*********************** -->
+	<!-- Start node that moves the base and flashes the camera -->
+	<node pkg="image_stitch" type="move_base6" name="move_base6" output="screen"/>  
+
+	<!-- Configuration for MultiSense Camera -->
+	<arg name="ip_address" default="192.168.0.9" />
+	<arg name="namespace"  default="multisense" />
+	<arg name="mtu"        default="7200" />
+	<arg name="sensor"     default="S7" />
+	<arg name="launch_robot_state_publisher" default="true" />
+
+	<!-- MultiSense ROS Driver -->
 	<node pkg="multisense_ros" ns="$(arg namespace)" type="ros_driver_merritt" name="$(arg namespace)_driver_merritt" output="screen">
 	 <param name="sensor_ip"   value="$(arg ip_address)" />
 	 <param name="sensor_mtu"  value="$(arg mtu)" />
 	 <param name="tf_prefix"  value="$(arg namespace)" />
 	</node>
 
-	<!-- Start node that integrates all in the executive  -->
-	<!--node pkg="top_executive" type="executive_node_stitch" name="executive_node_stitch" output="screen"/-->
 
+
+	<!-- ***********************URDF AND TF'S*********************** -->
+ 	<!-- urdf xml robot description loaded on the Parameter Server-->
+ 	<param name="robot_description" textfile="$(find boost_urdf)/robots/boost_stalker.urdf" />
+
+	<node pkg="tf" type="static_transform_publisher" name="multisense_tf_static_broadcaster" args="-.09 .52 -.065 0 -1.57 -1.57 top_plate_link multisense/head 50" />  <!--[offset along robot travel axis, height from top plate, offset along camera z] -->
+
+	<node pkg="tf" type="static_transform_publisher" name="multisense_left_camera_tf_static_broadcaster" args="0.052 0.035 0 0 0 0 multisense/head multisense/left_camera_frame 50" />
+
+	<node pkg="tf" type="static_transform_publisher" name="multisense_left_optical_tf_static_broadcaster" args="0 0 0 -1.57079632679 0.0 -1.57079632679 multisense/left_camera_frame multisense/left_camera_optical_frame 50" />
+
+
+
+	<!-- ***********************ARM EXECUTIVE*********************** -->
+	<node pkg="arm_executive" type="arm_executive_image_stitch" name="arm_executive_image_stitch" output="screen"/>
+
+
+
+	<!-- ***********************STALK DETECTION*********************** -->
 	<!-- Start node that stitches the images -->
-	<!--node pkg="image_stitch" type="stitcher10" name="stitcher10" output="screen"/-->
+	<!--node pkg="image_stitch" type="stitcher12" name="stitcher12" output="screen"/-->
 
-	<!-- Start node that moves the base and flashes the camera -->
-	<node pkg="image_stitch" type="move_base5" name="move_base5" output="screen"/>  
+	<!-- select optimal centroid from many centroids -->
+	<!--node pkg="hebi" type="alpha_centroid_image_stitch" name="alpha_centroid_image_stitch" output="screen"/-->
+
+
+
+	<!-- ***********************SERVOING AND GRIPPER (SHOULDN'T NEED TO MODIFY)*********************** -->
+	<!-- service node to configure the arm (left, right, stow) -->
+	<node pkg="hebi" type="arm_config_service_node5" name="arm_config_service_node5" output="screen"/>
+
+	<!-- controls the servo routine to a target -->
+	<node name="cylinder_servo_node6" pkg="hebi" type="cylinder_servo_node6" output="screen">
+		<param name="jointTopic" type="string" value="/joint_states" />
+	</node>
+
+	<!-- service node to reverse the arm -->
+	<node pkg="hebi" type="cylinder_reverse_node5" name="cylinder_reverse_node5" output="screen"/>
+
+	<!-- gripper procedures -->
+	<node pkg="gripper" type="gripper_node6" name="gripper_node6" output="screen"/>
+
+	<node pkg="gripper" type="gripper_close" name="gripper_close" output="screen"/>
+
+	<node pkg="gripper" type="gripper_open" name="gripper_open" output="screen"/>
 
 </launch>

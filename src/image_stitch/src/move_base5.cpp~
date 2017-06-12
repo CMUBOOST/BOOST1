@@ -123,6 +123,7 @@ bool burst_callback(std_srvs::Trigger::Request  &req, std_srvs::Trigger::Respons
 
   for(int i=0; i<5; i++){
     std::string result = syncboard.readline();
+	ROS_INFO_STREAM("I is: " << i << ", readline is: " << result);
 	if(i<2){
       output.linear.x = 0.5;		
       output.linear.y = 0.0;
@@ -135,8 +136,8 @@ bool burst_callback(std_srvs::Trigger::Request  &req, std_srvs::Trigger::Respons
       //std::cout << result.compare("end") << std::endl;
       //if (result.compare("end")==0){
 	}
-    else{
-      //std::cout << result << std::endl;
+    else{ //TODO: THIS MAKES NO SENSE. i ONLY ITERATES THROUGH 0, 1, 2!
+      std::string result = syncboard.readline();
       output.linear.x = 0.0;
       output.linear.y = 0.0;
       output.linear.z = 0.0;
@@ -146,7 +147,8 @@ bool burst_callback(std_srvs::Trigger::Request  &req, std_srvs::Trigger::Respons
       pub.publish(output);
       return true;
     }
-    ROS_INFO("Finished the burst");
+	syncboard.flush();
+    ROS_INFO("Finished the burst");  //TODO: THIS ALSO DOESN'T MAKE SENSE AS OUTPUT!
     pub.publish(output);
   }
   count++;
@@ -179,6 +181,7 @@ int main(int argc, char **argv)
   while(ros::ok()){
     ros::spinOnce();
     ros::Rate(10).sleep();
+	syncboard.flush();
   }
   syncboard.write("s");
   return 0;
