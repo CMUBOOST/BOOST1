@@ -125,6 +125,7 @@ bool Move::trigger_callback(std_srvs::Trigger::Request  &req, std_srvs::Trigger:
 bool Move::burst_callback(std_srvs::Trigger::Request  &req, std_srvs::Trigger::Response &res)
 {
   static unsigned int count=0;
+  syncboard.write("v");
 
   res.success = true; 
   res.message = "Started syncboard burst trigger"; //this trigger defaults to 5hz and is independent of robot position
@@ -140,7 +141,7 @@ bool Move::burst_callback(std_srvs::Trigger::Request  &req, std_srvs::Trigger::R
 
   syncboard.write("b");
 
-  usleep(1300000); //TUNE THIS PARAMETER
+  usleep(1700000); //TUNE THIS PARAMETER
 
   output.linear.x = 0.0;
   output.linear.y = 0.0;
@@ -169,7 +170,7 @@ int main(int argc, char **argv)
   //Synboard stuff
   std::string port;
   int baud;
-  nh.param<std::string>("port", port, "/dev/ttyACM1");
+  nh.param<std::string>("port", port, "/dev/ttyUSB0");
   nh.param("baud", baud, 115200);
   syncboard.setTimeout(serial::Timeout::max(), 500, 0, 500, 0);
   syncboard.setPort(port);

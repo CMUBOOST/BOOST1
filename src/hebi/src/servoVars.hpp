@@ -24,7 +24,7 @@
     //cylinder_servo
     //Lengths of arm links
     float L1 = 0.299;
-    float L2 = 0.285; //this length is a little short - it pushes the arm into the stalk a bit
+    float L2 = 0.31; //0.285; //this length is a little short - it pushes the arm into the stalk a bit
     //these two lengths total to 0.584 (see armLengthLimit variable)
 
     float hyp = L1;

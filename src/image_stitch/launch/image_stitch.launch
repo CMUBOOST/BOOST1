@@ -23,7 +23,7 @@
 
 	<!-- ***********************BASE MOVEMENT AND CAMERA OPERATION*********************** -->
 	<!-- Start node that moves the base and flashes the camera -->
-	<node pkg="image_stitch" type="move_base6" name="move_base6" output="screen"/>  
+	<node pkg="image_stitch" type="move_base7" name="move_base7" output="screen"/>  
 
 	<!-- Configuration for MultiSense Camera -->
 	<arg name="ip_address" default="192.168.0.9" />

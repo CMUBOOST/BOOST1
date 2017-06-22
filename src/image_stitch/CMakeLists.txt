@@ -142,6 +142,9 @@ target_link_libraries(move_base5 ${catkin_LIBRARIES})
 add_executable(move_base6 src/move_base6.cpp)
 target_link_libraries(move_base6 ${catkin_LIBRARIES})
 
+add_executable(move_base7 src/move_base7.cpp)
+target_link_libraries(move_base7 ${catkin_LIBRARIES})
+
 add_executable(stitcher10 src/stitcher10.cpp)
 target_link_libraries(stitcher10 ${catkin_LIBRARIES} ${OpenCV_LIBS})
 
@@ -150,6 +153,9 @@ target_link_libraries(stitcher11 ${catkin_LIBRARIES} ${OpenCV_LIBS})
 
 add_executable(stitcher12 src/stitcher12.cpp)
 target_link_libraries(stitcher12 ${catkin_LIBRARIES} ${OpenCV_LIBS})
+
+add_executable(stitcher13 src/stitcher13.cpp)
+target_link_libraries(stitcher13 ${catkin_LIBRARIES} ${OpenCV_LIBS})
 
 add_executable(stitcher_why src/stitcher_why.cpp)
 target_link_libraries(stitcher_why ${catkin_LIBRARIES} ${OpenCV_LIBS})

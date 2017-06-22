@@ -23,7 +23,7 @@
 
 	<!-- ***********************BASE MOVEMENT AND CAMERA OPERATION*********************** -->
 	<!-- Start node that moves the base and flashes the camera -->
-	<node pkg="image_stitch" type="move_base6" name="move_base6" output="screen"/>  
+	<node pkg="image_stitch" type="move_base7" name="move_base7" output="screen"/>  
 
 	<!-- Configuration for MultiSense Camera -->
 	<arg name="ip_address" default="192.168.0.9" />
@@ -61,9 +61,6 @@
 	<!-- ***********************STALK DETECTION*********************** -->
 	<!-- Start node that stitches the images -->
 	<!--node pkg="image_stitch" type="stitcher12" name="stitcher12" output="screen"/-->
-
-	<!-- select optimal centroid from many centroids -->
-	<!--node pkg="hebi" type="alpha_centroid_image_stitch" name="alpha_centroid_image_stitch" output="screen"/-->
 
 
 

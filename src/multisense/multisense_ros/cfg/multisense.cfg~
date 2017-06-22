@@ -60,8 +60,8 @@ for cfg in sensorConfigList:
                               gen.const("2048x2048_128_disparities", str_t, "2048x2048x128", "2048x2048x128"),
                               gen.const("2048x2048_256_disparities", str_t, "2048x2048x256", "2048x2048x256") ],
                             "Available resolution settings")
-        gen.add("resolution", str_t, 0, "sensor resolution", "1024x512x256", edit_method=res_enum)
-        gen.add("fps", double_t, 0, "FPS", 5.0, 1.0, 15.0)
+        gen.add("resolution", str_t, 0, "sensor resolution", "1024x1024x256", edit_method=res_enum)
+        gen.add("fps", double_t, 0, "FPS", 10.0, 1.0, 15.0)
     elif cfg.name.find('bm_cmv2000') != -1:
         res_enum = gen.enum([ gen.const("1024x544_128_disparities", str_t, "1024x544x128", "1024x544x128"),
                               gen.const("2048x1088_No_disparities", str_t, "2048x1088x0", "2048x1088x0") ],
@@ -95,7 +95,7 @@ for cfg in sensorConfigList:
                               gen.const("2048x2048", str_t, "2048x2048x0", "2048x2048x0") ],
                             "Available resolution settings")
         gen.add("resolution", str_t, 0, "sensor resolution", "1024x1024x0", edit_method=res_enum)
-        gen.add("fps", double_t, 0, "FPS", 5.0, 1.0, 15.0)
+        gen.add("fps", double_t, 0, "FPS", 10.0, 1.0, 15.0)
     #endif
 
     gen.add("desired_transmit_delay", int_t, 0, "desired_transmit_delay (ms)", 0, 0, 500)
@@ -107,11 +107,11 @@ for cfg in sensorConfigList:
 
     if cfg.name.find('st21_sgm_vga_imu') == -1:
         gen.add("gain", double_t, 0, "sensor gain", 1.0, 1.0, 8.0)
-        gen.add("auto_exposure", bool_t, 0, "AutoExposure", True)
+        gen.add("auto_exposure", bool_t, 0, "AutoExposure", False)
         gen.add("auto_exposure_max_time", double_t, 0, "AutoExposureMaxTime", 0.5, 0.0, 0.5);
         gen.add("auto_exposure_decay", int_t, 0, "AutoExposureDecay", 7, 0, 20)
         gen.add("auto_exposure_thresh", double_t, 0, "AutoExposureThresh", 0.75, 0.0, 1.0)
-        gen.add("exposure_time", double_t, 0, "Exposure", 0.025, 0, 0.5)
+        gen.add("exposure_time", double_t, 0, "Exposure", 0.0, 0, 0.5)
         gen.add("auto_white_balance", bool_t, 0, "AutoWhiteBalance", True)
         gen.add("auto_white_balance_decay", int_t, 0, "AutoWhiteBalanceDecay", 3, 0, 20)
         gen.add("auto_white_balance_thresh", double_t, 0, "AutoWhiteBalanceThresh", 0.5, 0.0, 1.0)
@@ -126,8 +126,8 @@ for cfg in sensorConfigList:
 
 
     if cfg.name.find('st21_sgm_vga_imu') == -1:
-        gen.add("lighting", bool_t, 0, "Lighting", True)
-        gen.add("flash", bool_t, 0, "Flash", True)
+        gen.add("lighting", bool_t, 0, "Lighting", False)
+        gen.add("flash", bool_t, 0, "Flash", False)
         gen.add("led_duty_cycle", double_t, 0, "DutyCycle", 1.0, 0.0, 1.0)
         gen.add("motor_speed", double_t, 0, "MotorSpeed", 0.0, 0.0, 5.2);
         gen.add("network_time_sync", bool_t, 0, "NetworkTimeSynchronization", True);
@@ -135,7 +135,7 @@ for cfg in sensorConfigList:
 
     if cfg.imu:
         gen.add("imu_samples_per_message", int_t, 0, "ImuSamplesPerMessage", 30, 1, 300)
-        gen.add("accelerometer_enabled", bool_t, 0, "AcceleromterEnabled", True)
+        gen.add("accelerometer_enabled", bool_t, 0, "AccelerometerEnabled", False)
         a_rate_enum = gen.enum([ gen.const("10Hz__1HzCutoff", int_t, 0, ""),
                                  gen.const("25Hz__3HzCutoff", int_t, 1, ""),
                                  gen.const("50Hz__6HzCutoff", int_t, 2, ""),
@@ -151,7 +151,7 @@ for cfg in sensorConfigList:
                                   gen.const("16g__12mg_per_lsb", int_t, 3, "") ],
                                 "Available acceleromter ranges")
         gen.add("accelerometer_range", int_t, 0, "Acceleromter Range", 0, edit_method=a_range_enum)
-        gen.add("gyroscope_enabled", bool_t, 0, "GyroscopeEnabled", True)
+        gen.add("gyroscope_enabled", bool_t, 0, "GyroscopeEnabled", False)
         g_rate_enum = gen.enum([ gen.const("100Hz__13HzCutoff", int_t, 0, ""),
                                  gen.const("200Hz__13HzCutoff", int_t, 1, ""),
                                  gen.const("200Hz__25HzCutoff", int_t, 2, ""),
@@ -165,7 +165,7 @@ for cfg in sensorConfigList:
                                   gen.const("500dps__18mdps_per_lsb", int_t, 1, ""),
                                   gen.const("2000dps__70mdps_per_lsb", int_t, 2, "") ], "Available gyroscope ranges")
         gen.add("gyroscope_range", int_t, 0, "Gyroscope Range", 0, edit_method=g_range_enum)
-        gen.add("magnetometer_enabled", bool_t, 0, "MagnetometerEnabled", True)
+        gen.add("magnetometer_enabled", bool_t, 0, "MagnetometerEnabled", False)
         m_rate_enum = gen.enum([ gen.const("10Hz", int_t, 0, ""),
                                  gen.const("25Hz", int_t, 1, ""),
                                  gen.const("50Hz", int_t, 2, ""),
