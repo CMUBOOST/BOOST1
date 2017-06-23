@@ -111,6 +111,10 @@ private:
 	double arm_height;
 	float centroid_x;
 	float centroid_y;
+	const static float cam_x_offset = 0.255; //.265
+	const static float cam_z_offset = 0.015;	
+
+	std::vector<std::vector<float> > centroids;
 };
 // END .h
 
@@ -799,6 +803,42 @@ void Stitch::slice(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_full, Eige
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_full_xyz (new pcl::PointCloud<pcl::PointXYZ>);	
 	copyPointCloud(*cloud_full, *cloud_full_xyz);
 
+	/*
+	//Filter cloud_full_xyz for unreachable points
+	std::clock_t begin = clock();
+	double temporary;
+	for(int i=0; i<cloud_full_xyz->size(); i++){
+		if((sqrt(pow((*cloud_full_xyz)[i].x, 2)+pow((*cloud_full_xyz)[i].z, 2))) > 0.565)
+			cloud_full_xyz->erase(cloud_full_xyz->begin() + i);
+	}
+	std::clock_t end = clock();
+	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+	std::cout << "---------------ELAPSED TIME TO FILTER--------------- " << elapsed_secs << " seconds" << std::endl;
+	*/
+
+	float arm_extended = 0.56;
+
+	std::cout << "Size of cloud_full_xyz: " << cloud_full_xyz->size() << std::endl;
+	std::clock_t begin = clock();
+	pcl::PassThrough<pcl::PointXYZ> pass2;
+    pass2.setInputCloud (cloud_full_xyz);
+    pass2.setFilterFieldName ("x");
+    pass2.setFilterLimits (-arm_extended-cam_x_offset, arm_extended-cam_x_offset);
+    pass2.filter (*cloud_full_xyz);
+    std::cout << "Size of cloud_full_xyz: " << cloud_full_xyz->size() << std::endl;
+
+	pcl::PassThrough<pcl::PointXYZ> pass3;
+    pass3.setInputCloud (cloud_full_xyz);
+    pass3.setFilterFieldName ("z");
+    pass3.setFilterLimits (0, arm_extended+cam_z_offset);
+    pass3.filter (*cloud_full_xyz);
+
+    std::cout << "Size of cloud_full_xyz: " << cloud_full_xyz->size() << std::endl;
+    std::clock_t end = clock();
+	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+	std::cout << "---------------ELAPSED TIME TO FILTER--------------- " << elapsed_secs << " seconds" << std::endl;
+
+
 	ROS_INFO("Initializing to calculate normals");
 	//----------------------------------------Take Normals of tformed plants---------------------------------
 	pcl::PointCloud<pcl::PointNormal>::Ptr cloud_normals (new pcl::PointCloud<pcl::PointNormal>);
@@ -815,9 +855,9 @@ void Stitch::slice(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_full, Eige
 
 	ROS_INFO("Goofy for-loop");
 	for(int i=0; i<cloud_normals->size(); i++){
-		(*cloud_normals)[i].x = (*cloud_full)[i].x;
-		(*cloud_normals)[i].y = (*cloud_full)[i].y;
-		(*cloud_normals)[i].z = (*cloud_full)[i].z;;
+		(*cloud_normals)[i].x = (*cloud_full_xyz)[i].x;
+		(*cloud_normals)[i].y = (*cloud_full_xyz)[i].y;
+		(*cloud_normals)[i].z = (*cloud_full_xyz)[i].z;;
 	}
 
 	ROS_INFO("Removing NAN normals");
@@ -829,7 +869,7 @@ void Stitch::slice(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_full, Eige
  	std::cout << "Size of cloud_normals: " << cloud_normals->size() << std::endl;   
 
     int num_slices = 6;
-	std::vector<std::vector<std::vector<float> > > sphere_locs_3d (num_slices,std::vector<std::vector<float> >(25,std::vector<float>(3, 0)));  // HARD CODING 15 SPHERES IN ONE LAYER!!!
+	std::vector<std::vector<std::vector<float> > > sphere_locs_3d (num_slices,std::vector<std::vector<float> >(25,std::vector<float>(3, 0)));  // HARD CODING 25 SPHERES IN ONE LAYER!!!
  	//sphere_locs.resize(50, std::vector<float>(2, 0));
 
 	// Turn each cluster index into a point cloud
@@ -879,6 +919,7 @@ void Stitch::slice(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_full, Eige
 	    std::stringstream ss9;
   		ss9 << "basic_shapes_" << n;
 	    
+	    //SPHERES UP THE ENTIRE STALK
 	    for(int q=0; q<hotspots.size(); q++){
 	    	if(hotspots[q][0]!=0){
 		    	ROS_INFO_STREAM("hotspots x: " << hotspots[q][0]); 
@@ -905,12 +946,12 @@ void Stitch::slice(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_full, Eige
 	    		marker_sphere.scale.x = 0.05;
 			    marker_sphere.scale.y = 0.05;
 			    marker_sphere.scale.z = 0.05;
-			    marker_sphere.color.r = 1.0f;
-			    marker_sphere.color.g = 0.0f;
+			    marker_sphere.color.r = 0.0f;
+			    marker_sphere.color.g = 1.0f;
 			    marker_sphere.color.b = 0.0f;
-			    marker_sphere.color.a = 0.5;
+			    marker_sphere.color.a = 0.2;
 			    marker_sphere.lifetime = ros::Duration();
-			    //markerPub.publish(marker_sphere);  
+			    markerPub.publish(marker_sphere);  
 			}
 		} 
 
@@ -939,6 +980,7 @@ void Stitch::slice(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_full, Eige
 	visualization_msgs::Marker marker_sphere;
     std::stringstream ss10;
     
+    //SPHERE AT BOTTOM OF STALK
     for(int q=0; q<cylinder_locs.size(); q++){
     	ss10 << "basic_shapes2_" << q;
     	marker_sphere.header.frame_id = "/multisense/left_camera_optical_frame";
@@ -970,6 +1012,7 @@ void Stitch::slice(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_full, Eige
 
     std::stringstream ss11;
 	visualization_msgs::Marker marker_sphere2;
+	//SPHERE AT TOP OF STALK
     for(int q=0; q<cylinder_locs.size(); q++){
     	ss11 << "basic_shapes3_" << q;
     	marker_sphere2.header.frame_id = "/multisense/left_camera_optical_frame";
@@ -1072,9 +1115,6 @@ void Stitch::slice(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_full, Eige
     		double y_orientation = cylinder_locs[i][4] - cylinder_locs[i][1];
     		double z_orientation = cylinder_locs[i][5] - cylinder_locs[i][2];
     		std::cout << "----------------VECTOR: " << x_orientation << ", " << y_orientation << ", " << z_orientation << std::endl;
-    		//Vec3<double> v1 (x_orientation, y_orientation, z_orientation);
-    		//Vec3<double> v2 (0, 0, 1);
-    		//Vec3<double> a = Vec3<double>::crossProduct(v1, v2);
 			Eigen::Vector3d v1(x_orientation,y_orientation,z_orientation);
 			Eigen::Vector3d v2(0,0,1);
 			Eigen::Vector3d a = v2.cross(v1);
@@ -1095,7 +1135,7 @@ void Stitch::slice(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_full, Eige
 		    marker.color.r = 0.0f;
 		    marker.color.g = 1.0f;
 		    marker.color.b = 0.0f;
-		    marker.color.a = 0.5;
+		    marker.color.a = 0.3;
 		    marker.lifetime = ros::Duration();
 		    markerPub.publish(marker);
 
@@ -1108,6 +1148,7 @@ void Stitch::slice(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_full, Eige
 
 			std::cout << "-------------Height ratio: " << height_ratio << ", x_loc: " << x_loc_camera_frame << ", z_loc: " << z_loc_camera_frame  << std::endl;
 			
+			//SPHERE AT REACH POINT
 			visualization_msgs::Marker marker_sphere4;
 	    	marker_sphere4.header.frame_id = "/multisense/left_camera_optical_frame";
 		    marker_sphere4.header.stamp = ros::Time::now();
@@ -1141,12 +1182,21 @@ void Stitch::slice(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_full, Eige
 		    //ROS_INFO_STREAM("IN JOINT FRAME");
 		    //ROS_INFO_STREAM("X: " << -(marker.pose.position.x + .3) << ", Z: " << -(marker.pose.position.z + .015));
 
-		    centroid_x = -(x_loc_camera_frame + .265);
-		    centroid_y = -(z_loc_camera_frame + .015); //TODO: MAKE THIS MAKE SENSE	
+		    centroid_x = -(x_loc_camera_frame + cam_x_offset);
+		    centroid_y = -(z_loc_camera_frame + cam_z_offset); //TODO: MAKE THIS MAKE SENSE	
 
 		    ROS_INFO_STREAM("centroid_x: " << centroid_x);
-		    ROS_INFO_STREAM("centroid_y: " << centroid_y);	    
+		    ROS_INFO_STREAM("centroid_y: " << centroid_y);
+
+		    std::vector<float> centroids_temp;
+		    centroids_temp.push_back(centroid_x);	
+		    centroids_temp.push_back(centroid_y);
+		    centroids.push_back(centroids_temp);
+		    centroids_temp.clear();			        
 		}
+	}
+	for(int i=0; i<centroids.size(); i++){
+		std::cout << "Centroid " << i << ": " << centroids[i][0] << ", " << centroids[i][1] << std::endl;
 	}
 }
 
@@ -1156,7 +1206,7 @@ bool Stitch::alphaService(image_stitch::AlphaCentroid::Request  &req,
 	res.alpha_centroid_resp_x = centroid_x; //x_loc;
     res.alpha_centroid_resp_y = centroid_y; //y_loc;
     res.alpha_centroid_resp_z = 0; //z_loc;
-    res.alpha_centroid_num_inliers = 6; //max_inliers;
+    res.alpha_centroid_num_inliers = 6; //max_inliers;  //TODO: FIX THIS AWFUL TEMPORARY HACK!!!
 
     ROS_INFO_STREAM("sending back response: " << res.alpha_centroid_resp_x);
     return true;

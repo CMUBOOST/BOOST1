@@ -43,7 +43,7 @@
 
 	<!-- ***********************URDF AND TF'S*********************** -->
  	<!-- urdf xml robot description loaded on the Parameter Server-->
- 	<param name="robot_description" textfile="$(find boost_urdf)/robots/boost_stalker.urdf" />
+ 	<!--param name="robot_description" textfile="$(find boost_urdf)/robots/boost_stalker.urdf" /-->
 
 	<node pkg="tf" type="static_transform_publisher" name="multisense_tf_static_broadcaster" args="-.09 .52 -.065 0 -1.57 -1.57 top_plate_link multisense/head 50" />  <!--[offset along robot travel axis, height from top plate, offset along camera z] -->
 

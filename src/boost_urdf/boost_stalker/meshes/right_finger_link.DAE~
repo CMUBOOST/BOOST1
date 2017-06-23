@@ -19,10 +19,10 @@
               <color>0 0 0 1</color>
             </emission>
             <ambient>
-              <color>0.6941177 0.7019608 0.7019608 1</color>
+              <color>0.2980392 0.5490196 0.1686275 1</color>
             </ambient>
             <diffuse>
-              <color>0.6941177 0.7019608 0.7019608 1</color>
+              <color>0.2980392 0.5490196 0.1686275 1</color>
             </diffuse>
             <specular>
               <color>0.9 0.9 0.9 1</color>
