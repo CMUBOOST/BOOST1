@@ -55,6 +55,7 @@
 #include <visualization_msgs/Marker.h>
 
 #include "image_stitch/AlphaCentroid.h"
+#include "arm_executive/ArmInitStitch.h"
 
 using namespace message_filters;
 using namespace geometry_msgs;
@@ -93,7 +94,7 @@ public:
 	void slice(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_full, Eigen::Matrix4f GlobalTransform_odom);
 	std::vector<std::vector<float> > filterFunction2(pcl::PointCloud<pcl::PointNormal>::Ptr cloud);
 	std::vector<std::vector<float> > sphereLogic2(std::vector<std::vector<std::vector<float> > > sphere_locs_3d);
-	bool alphaService(image_stitch::AlphaCentroid::Request  &req, image_stitch::AlphaCentroid::Response &res);
+	//bool alphaService(image_stitch::AlphaCentroid::Request  &req, image_stitch::AlphaCentroid::Response &res);
 // ---	
 private:
 	ros::NodeHandle mNode;
@@ -796,6 +797,9 @@ std::vector<std::vector<float> > Stitch::sphereLogic2(std::vector<std::vector<st
 void Stitch::slice(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_full, Eigen::Matrix4f GlobalTransform_odom){
 	
 	pcl::PLYWriter writer;
+
+	ros::ServiceClient client = mNode.serviceClient<arm_executive::ArmInitStitch>("arm_init");
+
 	std::cout << "Size of cloud_full: " << cloud_full->size() << std::endl;
     //boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
 
@@ -1192,26 +1196,55 @@ void Stitch::slice(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_full, Eige
 		    centroids_temp.push_back(centroid_x);	
 		    centroids_temp.push_back(centroid_y);
 		    centroids.push_back(centroids_temp);
-		    centroids_temp.clear();			        
+		    centroids_temp.clear();	
+
+			arm_executive::ArmInitStitch srv;
+		  	srv.request.arm_init_req = "left";
+		  	srv.request.arm_init_req_x = centroid_x;
+		  	srv.request.arm_init_req_y = centroid_y;
+		  	//client.call(srv);
+			//ROS_INFO_STREAM("Called the service");
+
+		  	if (client.call(srv))
+		  	{
+		    	ROS_INFO_STREAM("Response: " << srv.response.arm_init_resp);
+		  	}
+		  	else
+		  	{
+		    	ROS_ERROR("Failed to call service");
+		  	}		    		        
 		}
 	}
-	for(int i=0; i<centroids.size(); i++){
-		std::cout << "Centroid " << i << ": " << centroids[i][0] << ", " << centroids[i][1] << std::endl;
-	}
+
+
+
 }
 
+/*
 bool Stitch::alphaService(image_stitch::AlphaCentroid::Request  &req,
           image_stitch::AlphaCentroid::Response &res)
 {
-	res.alpha_centroid_resp_x = centroid_x; //x_loc;
-    res.alpha_centroid_resp_y = centroid_y; //y_loc;
+	static int centroid_counter = 0;
+
+	std::cout << "Request is: " << req << std::endl;
+
+	//res.alpha_centroid_resp_x = centroid_x; //x_loc;
+    //res.alpha_centroid_resp_y = centroid_y; //y_loc;
     res.alpha_centroid_resp_z = 0; //z_loc;
     res.alpha_centroid_num_inliers = 6; //max_inliers;  //TODO: FIX THIS AWFUL TEMPORARY HACK!!!
 
-    ROS_INFO_STREAM("sending back response: " << res.alpha_centroid_resp_x);
+	//for(int i=0; i<centroids.size(); i++){
+	//	std::cout << "Centroid " << i << ": " << centroids[i][0] << ", " << centroids[i][1] << std::endl;
+	//}
+
+	res.alpha_centroid_resp_x = centroids[centroid_counter][0];
+	res.alpha_centroid_resp_y = centroids[centroid_counter][1];
+
+    ROS_INFO_STREAM("sending back response: " << centroid_counter);
+    centroid_counter++;
     return true;
 }
-
+*/
 
 int main(int argc, char** argv)
 {
@@ -1222,7 +1255,7 @@ int main(int argc, char** argv)
 
 	Stitch* pStitch = new Stitch;
 
-	ros::ServiceServer service = nh.advertiseService("alpha_centroid", &Stitch::alphaService, pStitch);
+	//ros::ServiceServer service = nh.advertiseService("alpha_centroid", &Stitch::alphaService, pStitch);
 
   	message_filters::Subscriber<nav_msgs::Odometry> odomSub(nh, "/wheel_encoder/odom", 10);
   	message_filters::Subscriber<sensor_msgs::PointCloud2> cloudSub(nh, "/multisense/image_points2_color", 10);

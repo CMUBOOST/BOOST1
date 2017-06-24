@@ -58,6 +58,7 @@ find_package(catkin REQUIRED COMPONENTS
    FILES
    AddTwoInts_test.srv
    ArmInit.srv
+   ArmInitStitch.srv
  )
 
 ## Generate actions in the 'action' folder

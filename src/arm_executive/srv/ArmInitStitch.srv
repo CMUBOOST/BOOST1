@@ -1,0 +1,5 @@
+string arm_init_req
+float32 arm_init_req_x
+float32 arm_init_req_y
+---
+string arm_init_resp

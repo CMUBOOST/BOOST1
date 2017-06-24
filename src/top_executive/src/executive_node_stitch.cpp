@@ -12,7 +12,24 @@ bool run(std_srvs::Trigger::Request  &req, std_srvs::Trigger::Response &res)
     //ros::ServiceClient client = nh.serviceClient<arm_executive::ArmInit>("arm_init");
     res.success = true; 
   	res.message = "IN THE EXECUTIVE SERVICE CALLBACK";
-    int startFlag = 1;
+
+    ros::ServiceClient client = nh.serviceClient<arm_executive::ArmInit>("arm_init");
+    arm_executive::ArmInit srv;
+
+    srv.request.arm_init_req = "left";
+
+    ROS_INFO("Populated the request");
+    if (client.call(srv))
+    {
+      ROS_INFO_STREAM("Arm Executive Called"); //<< srv.response.arm_config_resp);
+    }
+    else
+    {
+      ROS_ERROR("Failed to call service arm_executive");
+      return 1;
+    }
+
+    
     return true;
 
     /*

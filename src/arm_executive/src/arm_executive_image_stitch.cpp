@@ -1,5 +1,5 @@
 #include "ros/ros.h"
-#include "arm_executive/ArmInit.h"
+#include "arm_executive/ArmInitStitch.h"
 #include "gripper/GripperActuate.h"
 #include "gripper/GripperClose.h"
 #include "gripper/GripperOpen.h"
@@ -11,32 +11,9 @@
 #include <cstdlib>
 
 
-bool run(arm_executive::ArmInit::Request  &req,
-         arm_executive::ArmInit::Response &res)
+bool run(arm_executive::ArmInitStitch::Request  &req,
+         arm_executive::ArmInitStitch::Response &res)
 {
-
-//------------------------Turn on camera------------------------
-
-//(turn this into a service call? Right now it just starts up with the launch file)
-
-    /*
-    ros::NodeHandle nh6;
-    ros::ServiceClient client6 = nh6.serviceClient<automatic_exposure::AutomaticExposure>("automatic_exposure");
-    automatic_exposure::AutomaticExposure srv6;
-
-    srv6.request.intensity_target = 30;
-
-    ROS_INFO("Populated the request");
-    if (client6.call(srv6))
-    {
-      ROS_INFO_STREAM("Automatic Exposure Called"); //<< srv.response.arm_config_resp);
-    }
-    else
-    {
-      ROS_ERROR("Failed to call service automatic_exposure");
-      return 1;
-    }
-    */
 
     if (req.arm_init_req != "stow")
     {
@@ -92,7 +69,7 @@ bool run(arm_executive::ArmInit::Request  &req,
 
 
           //---------------------Start Centroid Detection-------------------------
-
+          /*
           ros::NodeHandle nh5;
 
           ROS_INFO("Created a new node handle for alpha centroid detection");
@@ -102,7 +79,7 @@ bool run(arm_executive::ArmInit::Request  &req,
 
           srv5.request.alpha_centroid_req = req.arm_init_req;  //i.e. I'll send 'left' or 'right' as the request
 
-          ROS_INFO("Populated the request");
+          ROS_INFO_STREAM("Populated the request: " << req.arm_init_req);
           if (client5.call(srv5))
           {
             ROS_INFO_STREAM("Response from Alpha Centroid Command: " << srv5.response.alpha_centroid_resp_x << ", " << srv5.response.alpha_centroid_resp_y << ", " << srv5.response.alpha_centroid_resp_z << ", " << srv5.response.alpha_centroid_num_inliers);
@@ -133,6 +110,7 @@ bool run(arm_executive::ArmInit::Request  &req,
           }
           else
           {
+          */
             //----------------Visually Servo Arm to Plant------------------------
 
               ros::NodeHandle nh2;
@@ -143,9 +121,9 @@ bool run(arm_executive::ArmInit::Request  &req,
               hebi::ArmServo srv2;
 
               srv2.request.arm_servo_req_jointAngle = req.arm_init_req;  //i.e. I'll send 'left' or 'right' as the request
-              srv2.request.arm_servo_req_x = srv5.response.alpha_centroid_resp_x;
-              srv2.request.arm_servo_req_y = srv5.response.alpha_centroid_resp_y;
-              srv2.request.arm_servo_req_z = srv5.response.alpha_centroid_resp_z;
+              srv2.request.arm_servo_req_x = req.arm_init_req_x; //-.26; //srv5.response.alpha_centroid_resp_x;
+              srv2.request.arm_servo_req_y = req.arm_init_req_y;//-.41; //srv5.response.alpha_centroid_resp_y;
+              srv2.request.arm_servo_req_z = 0; //srv5.response.alpha_centroid_resp_z;
 
               ROS_INFO("Populated the request");
               if (client2.call(srv2))
@@ -197,8 +175,8 @@ bool run(arm_executive::ArmInit::Request  &req,
           hebi::ArmReverse srv3;
 
           srv3.request.arm_reverse_config_req = req.arm_init_req;  //i.e. I'll send 'left' or 'right' as the request
-          srv3.request.arm_reverse_x_est_req = srv5.response.alpha_centroid_resp_x;
-          srv3.request.arm_reverse_y_est_req = srv5.response.alpha_centroid_resp_y;
+          srv3.request.arm_reverse_x_est_req = req.arm_init_req_x; //-.26; //srv5.response.alpha_centroid_resp_x;
+          srv3.request.arm_reverse_y_est_req = req.arm_init_req_y; //-.41; //srv5.response.alpha_centroid_resp_y;
 
           ROS_INFO("Populated the request");
           if (client3.call(srv3))
@@ -210,7 +188,7 @@ bool run(arm_executive::ArmInit::Request  &req,
             ROS_ERROR("Failed to call service arm_reverse");
             return 1;
           }
-       }
+       //}
     }
 
   else
@@ -266,7 +244,6 @@ bool run(arm_executive::ArmInit::Request  &req,
 
       std::cout<<"end of sleep timer" << std::endl;
   }
-
 
   ROS_INFO_STREAM("sending back response:" << res.arm_init_resp);
   return true;
