@@ -1,0 +1,45 @@
+DUO-Camera-ROS
+==============
+
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/l0g1x/DUO-Camera-ROS?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+ROS Driver for DUO3D (http://duo3d.com/) cameras. 
+
+**NOTE:** 
+
+To stay up to date with the latest (required) SDK do the following: 
+- `unset DUO_SDK` (unset the enviornment variable if previously set)
+- `catkin_make`
+- The setup_duo script will then execute
+- After it's finished, **it will print the path** to where the new downloaded DUOSDK now is
+- Copy the command **from the log**: `export DUO_SDK=/path/to/catkin_ws/devel/DUOSDK`
+- Paste it into your `~/.bashrc`
+
+
+BOOST Instructions:
+
+Download the ZIP file for the DUO Dashboard from the DUO website
+Open the install guide as well
+Check kernel version on Ubuntu using uname -r, and make sure the corresponding driver is available
+Install the 512 version, I had some issues with 1024 in the past (although that might have been because I was a noob)
+
+Install stereo image processing from http://wiki.ros.org/stereo_image_proc
+
+Put the DUO Camera folder in the src folder, which should be located in catkin_ws (or BOOST1 in my case)
+
+Update the bashrc (with the "export" command as outlined above)
+
+Edit the CMakeLists.txt to manually direct the script to the location of your SDK folder (for example /home/boost-1/Documents/CL-DUO3D-LIN-1.0.50.26/DUOSDK/SDK)
+
+To run the launch file and view disparity image:
+	- source devel/setup.bash
+	- roslaunch duo.launch (this should publish a lot of ros topics)
+	- ROS_NAMESPACE=duo3d_camera rosrun stereo_image_proc stereo_image_proc
+	- rosrun image_view stereo_view stereo:=duo3d_camera image:=image_rect
+
+To view the point cloud:
+	- launch duo.launch
+	- rosrun tf static_transform_publisher 0 0 0 0 0 0 map duo3d_camera 100
+	- rviz
+	- change fixed frame to duo3d_camera
+	- add PointCloud2

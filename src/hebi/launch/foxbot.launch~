@@ -1,0 +1,4 @@
+<launch>
+  <param name="publish_frequency" value="50" />
+  <node pkg="hebi" name="foxbot_node" type="foxbot_node" />
+</launch>

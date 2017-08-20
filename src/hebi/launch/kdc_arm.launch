@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<launch>
+  
+  <param name="publish_frequency" value="50" />
+  
+  <node pkg="hebi" name="kdc_arm_node" type="kdc_arm_node" >
+<!--   	<remap from="/joint_states" to="/kdc_arm_node/joint_states" /> -->
+  </node>
+
+  <node pkg="joy" name="joy_node" type="joy_node" />
+
+  <!-- urdf xml robot description loaded on the Parameter Server-->
+  <param name="robot_description" textfile="$(find boost_urdf)/robots/boost_stalker.urdf" />
+
+    <!-- source that publishes the joint positions as a sensor_msgs/JointState -->
+<!--   <param name="use_gui" value="true"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> -->
+
+<!--   <node pkg="joint_state_publisher" name="joint_state_publisher" type="joint_state_publisher">
+  	<rosparam param="source_list">["/joint_states"]</rosparam>
+  </node> -->
+ 
+  <!-- robot visualization -->
+  <node name="rviz" pkg="rviz" type="rviz" required="true" />
+ 
+  <!-- publish all the frames to TF -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+    <param name="publish_frequency" value="50"/> <!-- Hz -->
+  </node>
+
+
+</launch>

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<launch>
+
+
+
+	<!-- ***********************URDF AND TF'S*********************** -->
+ 	<!-- urdf xml robot description loaded on the Parameter Server-->
+ 	<param name="robot_description" textfile="$(find boost_urdf)/robots/boost_stalker.urdf" />
+
+	<node pkg="tf" type="static_transform_publisher" name="multisense_tf_static_broadcaster" args="-.09 .52 .065 0 -1.57 -1.57 top_plate_link multisense/head 50" />  <!--[offset along robot travel axis, height from top plate, offset along camera z] -->
+
+	<node pkg="tf" type="static_transform_publisher" name="multisense_left_camera_tf_static_broadcaster" args="0.052 0.035 0 0 0 0 multisense/head multisense/left_camera_frame 50" />
+
+	<node pkg="tf" type="static_transform_publisher" name="multisense_left_optical_tf_static_broadcaster" args="0 0 0 -1.57079632679 0.0 -1.57079632679 multisense/left_camera_frame multisense/left_camera_optical_frame 50" />
+
+
+
+	<!-- ***********************ARM EXECUTIVE*********************** -->
+	<!--node pkg="arm_executive" type="arm_executive_image_stitch" name="arm_executive_image_stitch" output="screen"/-->
+
+
+
+	<!-- ***********************SERVOING AND GRIPPER (SHOULDN'T NEED TO MODIFY)*********************** -->
+	<!-- service node to configure the arm (left, right, stow) -->
+	<!--node pkg="hebi" type="arm_config_service_node5" name="arm_config_service_node5" output="screen"/-->
+
+	<!-- controls the servo routine to a target -->
+	<!--node name="cylinder_servo_node6" pkg="hebi" type="cylinder_servo_node6" output="screen">
+		<param name="jointTopic" type="string" value="/joint_states" />
+	</node-->
+
+	<!-- service node to reverse the arm -->
+	<!--node pkg="hebi" type="cylinder_reverse_node5" name="cylinder_reverse_node5" output="screen"/-->
+
+	<!-- gripper procedures -->
+	<node pkg="gripper" type="gripper_node6" name="gripper_node6" output="screen"/>
+
+	<node pkg="gripper" type="gripper_close" name="gripper_close" output="screen"/>
+
+	<node pkg="gripper" type="gripper_open" name="gripper_open" output="screen"/>
+
+	<!-- **************************FORCE GAUGE MEASUREMENTS********************** -->
+	<!-- Start the serial node for reading force sensor -->
+	<!--node pkg="rosserial_python" type="serial_node.py" name="serial_node">
+	  <param name="port" value="/dev/ttyACM0"/>
+	  <param name="baud" value="115200"/>
+	</node-->
+
+	<!-- Start node that converts ticks to pounds  -->
+	<node pkg="gripper" type="load_cell_ticksToPounds2" name="load_cell_ticksToPounds2" output="screen"/>
+
+	<!-- Start node that records peak loads  -->
+	<node pkg="data_recording" type="peak_logging5" name="peak_logging5" output="screen"/>
+
+</launch>

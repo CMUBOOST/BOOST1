@@ -1,0 +1,305 @@
+cmake_minimum_required(VERSION 2.8.3)
+project(hebi)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+## Find catkin macros and libraries
+## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
+## is used, also find other catkin packages
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  std_msgs
+  sensor_msgs
+  tf
+  urdf
+  message_generation
+)
+
+## System dependencies are found with CMake's conventions
+# find_package(Boost REQUIRED COMPONENTS system)
+
+
+## Uncomment this if the package has a setup.py. This macro ensures
+## modules and global scripts declared therein get installed
+## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
+# catkin_python_setup()
+
+################################################
+## Declare ROS messages, services and actions ##
+################################################
+
+## To declare and build messages, services or actions from within this
+## package, follow these steps:
+## * Let MSG_DEP_SET be the set of packages whose message types you use in
+##   your messages/services/actions (e.g. std_msgs, actionlib_msgs, ...).
+## * In the file package.xml:
+##   * add a build_depend and a run_depend tag for each package in MSG_DEP_SET
+##   * If MSG_DEP_SET isn't empty the following dependencies might have been
+##     pulled in transitively but can be declared for certainty nonetheless:
+##     * add a build_depend tag for "message_generation"
+##     * add a run_depend tag for "message_runtime"
+## * In this file (CMakeLists.txt):
+##   * add "message_generation" and every package in MSG_DEP_SET to
+##     find_package(catkin REQUIRED COMPONENTS ...)
+##   * add "message_runtime" and every package in MSG_DEP_SET to
+##     catkin_package(CATKIN_DEPENDS ...)
+##   * uncomment the add_*_files sections below as needed
+##     and list every .msg/.srv/.action file to be processed
+##   * uncomment the generate_messages entry below
+##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
+
+## Generate messages in the 'msg' folder
+# add_message_files(
+#   FILES
+#   Message1.msg
+#   Message2.msg
+# )
+
+## Generate services in the 'srv' folder
+ add_service_files(
+   FILES
+   AddTwoInts.srv
+   ArmConfigure.srv
+   ArmServo.srv
+   ArmReverse.srv
+   AlphaCentroid.srv
+   Stage.srv
+   StageImmediate.srv
+ )
+
+## Generate actions in the 'action' folder
+# add_action_files(
+#   FILES
+#   Action1.action
+#   Action2.action
+# )
+
+## Generate added messages and services with any dependencies listed here
+ generate_messages(
+   DEPENDENCIES
+   std_msgs
+ )
+
+###################################
+## catkin specific configuration ##
+###################################
+## The catkin_package macro generates cmake config files for your package
+## Declare things to be passed to dependent projects
+## INCLUDE_DIRS: uncomment this if you package contains header files
+## LIBRARIES: libraries you create in this project that dependent projects also need
+## CATKIN_DEPENDS: catkin_packages dependent projects also need
+## DEPENDS: system dependencies of this project that dependent projects also need
+catkin_package(
+#  INCLUDE_DIRS include
+#  LIBRARIES hebi
+#  CATKIN_DEPENDS roscpp std_msgs
+#  DEPENDS system_lib
+)
+
+###########
+## Build ##
+###########
+
+## Specify additional locations of header files
+## Your package locations should be listed before other locations
+# include_directories(include)
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+  include/hebi/cpp
+  include/hebi/c
+)
+
+## Declare a cpp executable
+#add_executable(group_node src/group_node.cpp
+#  include/hebi/cpp/command.cpp
+#  include/hebi/cpp/feedback.cpp
+#  include/hebi/cpp/module.cpp
+#  include/hebi/cpp/group_command.cpp
+#  include/hebi/cpp/group_feedback.cpp
+#  include/hebi/cpp/group.cpp
+#  include/hebi/cpp/lookup.cpp
+#)
+
+# For when we (actually) upgrade to 0.9.0
+#add_library(hebi_cpp_lib OBJECT
+#  include/hebi/cpp/actuator_command.cpp
+#  include/hebi/cpp/actuator_feedback.cpp
+#  include/hebi/cpp/actuator_info.cpp
+#  include/hebi/cpp/actuator_settings.cpp
+#  include/hebi/cpp/imu_feedback.cpp
+#  include/hebi/cpp/info.cpp
+#  include/hebi/cpp/io_feedback.cpp
+#  include/hebi/cpp/led_command.cpp
+#  include/hebi/cpp/led_feedback.cpp
+#  include/hebi/cpp/pid_info.cpp
+#  include/hebi/cpp/pid_settings.cpp
+#  include/hebi/cpp/settings.cpp
+#  include/hebi/cpp/command.cpp
+#  include/hebi/cpp/feedback.cpp
+#  include/hebi/cpp/module.cpp
+#  include/hebi/cpp/group_command.cpp
+#  include/hebi/cpp/group_info.cpp
+#  include/hebi/cpp/group_feedback.cpp
+#  include/hebi/cpp/group.cpp
+#  include/hebi/cpp/lookup.cpp
+#)
+
+add_library(hebi_cpp_lib OBJECT
+  include/hebi/cpp/command.cpp
+  include/hebi/cpp/feedback.cpp
+  include/hebi/cpp/module.cpp
+  include/hebi/cpp/group_command.cpp
+  include/hebi/cpp/group_feedback.cpp
+  include/hebi/cpp/group.cpp
+  include/hebi/cpp/lookup.cpp
+)
+
+## Declare a cpp executable
+add_executable(ARM_node src/ARM_node.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
+
+add_executable(kdc_arm_node src/kdc_arm_node.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
+
+## Add cmake target dependencies of the executable/library
+## as an example, message headers may need to be generated before nodes
+# add_dependencies(hebi_node hebi_generate_messages_cpp)
+#add_dependencies(group_node hebi_generate_messages_cpp)
+add_dependencies(ARM_node hebi_generate_messages_cpp)
+add_dependencies(kdc_arm_node hebi_generate_messages_cpp)
+
+## Specify libraries to link a library or executable target against
+# target_link_libraries(hebi_node
+#   ${catkin_LIBRARIES}
+# )
+
+target_link_libraries(ARM_node ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
+target_link_libraries(kdc_arm_node ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
+
+###########################
+## DHRUV ADDITIONS START ##
+###########################
+# ERROR CALCULATION NODE DETAILS
+
+set(ERROR_NODE_SOURCE_FILES_CYLINDER3
+src/cylinder_servo_node3.cpp
+#src/kdc_servo.cpp
+)
+
+set(ERROR_NODE_SOURCE_FILES_CYLINDER3
+src/cylinder_servo_node4.cpp
+#src/kdc_servo.cpp
+)
+
+#set(ERROR_NODE_SOURCE_FILES_CYLINDER_REVERSE3
+#src/cylinder_reverse_node3.cpp
+#src/kdc_servo.cpp
+#)
+
+#set(ERROR_NODE_SOURCE_FILES_CYLINDER_REVERSE4
+#src/cylinder_reverse_node4.cpp
+#src/kdc_servo.cpp
+#)
+
+set(ERROR_NODE_SOURCE_FILES_CYLINDER_REVERSE5
+src/cylinder_reverse_node5.cpp
+#src/kdc_servo.cpp
+)
+
+add_executable(cylinder_reverse_node5 ${ERROR_NODE_SOURCE_FILES_CYLINDER_REVERSE5} $<TARGET_OBJECTS:hebi_cpp_lib>)
+add_dependencies(cylinder_reverse_node5 hebi_generate_messages_cpp)
+target_link_libraries(cylinder_reverse_node5 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
+
+add_executable(arm_config_service_node4 src/arm_config_service_node4.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
+add_dependencies(arm_config_service_node4 hebi_generate_messages_cpp)
+target_link_libraries(arm_config_service_node4 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
+
+add_executable(arm_config_service_node5 src/arm_config_service_node5.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
+add_dependencies(arm_config_service_node5 hebi_generate_messages_cpp)
+target_link_libraries(arm_config_service_node5 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
+
+add_executable(alpha_centroid3 src/alpha_centroid3.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
+add_dependencies(alpha_centroid3 hebi_generate_messages_cpp)
+target_link_libraries(alpha_centroid3 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
+
+add_executable(alpha_centroid_image_stitch src/alpha_centroid_image_stitch.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
+add_dependencies(alpha_centroid_image_stitch hebi_generate_messages_cpp)
+target_link_libraries(alpha_centroid_image_stitch ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
+
+add_executable(cylinder_servo_node5 src/cylinder_servo_node5.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
+add_dependencies(cylinder_servo_node5 hebi_generate_messages_cpp)
+target_link_libraries(cylinder_servo_node5 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
+
+add_executable(cylinder_servo_node6 src/cylinder_servo_node6.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
+add_dependencies(cylinder_servo_node6 hebi_generate_messages_cpp)
+target_link_libraries(cylinder_servo_node6 ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
+
+add_executable(stage_node src/stage_node.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
+add_dependencies(stage_node hebi_generate_messages_cpp)
+target_link_libraries(stage_node ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
+
+add_executable(stage_immediate src/stage_immediate.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
+add_dependencies(stage_immediate hebi_generate_messages_cpp)
+target_link_libraries(stage_immediate ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
+
+add_executable(armNAN src/armNAN.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
+add_dependencies(armNAN hebi_generate_messages_cpp)
+target_link_libraries(armNAN ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
+
+add_executable(armCommandLine src/armCommandLine.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
+add_dependencies(armCommandLine hebi_generate_messages_cpp)
+target_link_libraries(armCommandLine ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
+
+add_executable(arm_stow_initial src/arm_stow_initial.cpp $<TARGET_OBJECTS:hebi_cpp_lib>)
+add_dependencies(arm_stow_initial hebi_generate_messages_cpp)
+target_link_libraries(arm_stow_initial ${catkin_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libhebi.so)
+
+#########################
+## DHRUV ADDITIONS END ##
+#########################
+
+#############
+## Install ##
+#############
+
+# all install targets should use catkin DESTINATION variables
+# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
+
+## Mark executable scripts (Python etc.) for installation
+## in contrast to setup.py, you can choose the destination
+# install(PROGRAMS
+#   scripts/my_python_script
+#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
+
+## Mark executables and/or libraries for installation
+# install(TARGETS hebi hebi_node
+#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
+
+## Mark cpp header files for installation
+# install(DIRECTORY include/${PROJECT_NAME}/
+#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+#   FILES_MATCHING PATTERN "*.h"
+#   PATTERN ".svn" EXCLUDE
+# )
+
+## Mark other files for installation (e.g. launch and bag files, etc.)
+# install(FILES
+#   # myfile1
+#   # myfile2
+#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+# )
+
+#############
+## Testing ##
+#############
+
+## Add gtest based cpp test target and link libraries
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_hebi.cpp)
+# if(TARGET ${PROJECT_NAME}-test)
+#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
+# endif()
+
+## Add folders to be run by python nosetests
+# catkin_add_nosetests(test)

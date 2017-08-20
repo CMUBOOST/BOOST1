@@ -1,0 +1,124 @@
+#!/usr/bin/env python
+
+import os
+import shutil
+import logging
+import sys
+import cookielib
+import urllib
+import urllib2
+import zipfile
+import StringIO
+import requests
+from requests.auth import HTTPBasicAuth
+
+logging.basicConfig(level=logging.INFO)
+
+sdk_url = 'https://duo3d.com/download_file/DUO3D-LIN-ALL-v1.0.25.180'
+
+#option_chosen = False
+
+duo_sdk_path = library_dest = sys.argv[1]
+#duo_sdk_path = '/home/krystian/github/duo/devel/DUOSDK'
+#path = raw_input(" Enter path: ")
+#logging.info(" Path Given: " + path)
+#os.environ['DUO_SDK'] = path
+
+
+#while (not option_chosen):
+	#logging.info(" --------------------------")
+	# logging.info(" Available options:")
+	# logging.info(" [1] - Download DUO_SDK")
+	# logging.info(" [2] - Specify full path (i.e home/l0g1x/Downloads/CL-DUO3D-LIN-1.0.25.180/DUOSDK/SDK/")
+	# logging.info(" Enter option:")
+	#var = raw_input()
+	
+logging.info(" --------------------------")
+logging.info(" Downloading SDK...")
+r = requests.get(sdk_url, verify=False)
+
+logging.info(os.getcwd())
+
+zf = zipfile.ZipFile(StringIO.StringIO(r.content))
+#zf = zipfile.ZipFile('CL-DUO3D-LIN-1.0.25.180.zip')
+zf.extractall('temp')
+
+tempPath = os.path.join(os.getcwd(), 'temp')
+
+# should only be 1 folder, but check regardless
+for folder in os.listdir(tempPath):
+	tempPath = os.path.join(tempPath, folder)
+
+logging.info(" Temp path: " + tempPath)
+
+for sdkFolder in os.listdir(tempPath):
+	if sdkFolder == 'DUOSDK':
+		logging.info(" Found folder: " + sdkFolder)
+		tempPath = os.path.join(tempPath, sdkFolder, 'SDK')
+		logging.info(" Temp path: " + tempPath)
+
+		if os.path.isdir(duo_sdk_path):
+			logging.info(" Removing old DUOSDK folder")
+			shutil.rmtree(duo_sdk_path)
+
+		shutil.move(tempPath,
+ 				duo_sdk_path)
+
+		shutil.rmtree(os.path.join(os.getcwd(), 'temp'))
+
+
+logging.info("PLEASE ADD THE FOLLOWING TO YOUR .bashrc:")
+logging.info("export DUO_SDK=" + duo_sdk_path)
+
+	# for name in zf.namelist():
+	# 	temp = os.path.join(os.getcwd(), name)
+	# 	path = os.path.dirname(temp)
+	# 	#print path
+	# 	#print os.path.dirname(path)
+	# #if os.path.isdir(path):
+	# 	if path.split('/')[-1] == 'DUOSDK':
+	# 		#print name
+	# 		logging.info(" Extracting SDK zip file...")
+
+	# 		tempPath = os.path.join(os.getcwd(), 'temp')
+	# 		if os.path.isdir(tempPath):
+	# 			shutil.rmtree(tempPath)
+	# 			os.mkdir(tempPath)
+	# 		else:
+	# 			os.mkdir(tempPath)
+
+	# 		localFilePath = zf.extract(name, tempPath)
+
+	# 		logging.info(os.listdir(tempPath))
+	# 		for filename in os.listdir(tempPath):
+	# 			logging.info(" " + filename)
+	# 			# remove SDK folder incase its a older version
+	# 			# if os.path.isdir(os.path.join(duo_sdk_path, 'DUOSDK')):
+	# 			# 	shutil.rmtree(os.path.join(duo_sdk_path, 'DUOSDK'))
+	# 			logging.info(os.path.join(tempPath, name))
+
+	# 			shutil.move(os.path.join(tempPath, name),
+	# 				duo_sdk_path)
+
+	# 		#shutil.move(localFilePath, duo_sdk_path)
+	# 		#os.rmdir(localFilePath)
+	# 		break
+
+#zipName = sdk_url.split('/')[-1]
+#logging.info(" " + zipName)
+
+#z.extractall("DUO_SDK/")
+
+# logging.info(" Moving SDK to workspace devel/ folder...")
+
+# for filename in os.listdir(os.path.join(os.getcwd(), zipName)):
+# 	shutil.move(os.path.join(os.getcwd(), zipName, filename), 
+#                 os.path.join(duo_sdk_path, filename))
+# os.rmdir(zipName)
+
+logging.info(" Done.")
+logging.info(" -------------------------- \n")
+
+
+#os.environ['DUO_SDK'] = path		
+	

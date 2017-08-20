@@ -1,0 +1,6 @@
+float32 arm_servo_req_21
+float32 arm_servo_req_22
+float32 arm_servo_req_23
+string arm_servo_req_jointAngle
+---
+string arm_servo_resp

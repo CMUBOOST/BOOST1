@@ -1,0 +1,1582 @@
+<?xml version="1.0"?>
+
+<robot
+  name="boost_stalker">
+ <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="3.48000000082727E-05 -5.97706897143002E-06 0.279242264011961"
+        rpy="0 0 0" />
+      <mass
+        value="110.231646230582" />
+      <inertia
+        ixx="1.85706943191924"
+        ixy="-4.63370260471625E-16"
+        ixz="-2.68252919188102E-16"
+        iyy="12.0901987942447"
+        iyz="0.000104934369661976"
+        izz="11.9969192941733" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/base_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="front_right_wheel_link">
+    <inertial>
+      <origin
+        xyz="5.57697270309188E-10 -5.82900303580658E-08 8.55921342357568E-07"
+        rpy="0 0 0" />
+      <mass
+        value="9.29095197009532" />
+      <inertia
+        ixx="0.07799935933281"
+        ixy="1.63674418536252E-07"
+        ixz="-6.79040943412538E-08"
+        iyy="0.0779992669583204"
+        iyz="-9.36911000530977E-08"
+        izz="0.141038079276616" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/wheel.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/wheel_collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front_right_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0.346705599994151 -0.22046160000002 0.19269899999908"
+      rpy="1.5707963267949 0 3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="front_right_wheel_link" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="rear_right_wheel_link">
+    <inertial>
+      <origin
+        xyz="0.0104939864342182 2.04668260117558E-08 8.11496014607727E-07"
+        rpy="0 0 0" />
+      <mass
+        value="9.29095161819513" />
+      <inertia
+        ixx="0.0779992908236528"
+        ixy="1.38955055835248E-07"
+        ixz="3.11948424132249E-08"
+        iyy="0.0779993181251659"
+        iyz="8.34650838486847E-09"
+        izz="0.14103809146575" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/wheel.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/wheel_collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rear_right_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.336220421927942 -0.22046160000002 0.192699000002407"
+      rpy="1.5707963267949 0 3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="rear_right_wheel_link" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="front_left_wheel_link">
+    <inertial>
+      <origin
+        xyz="-2.36534322684001E-09 -2.75471181421239E-08 -9.11556628180321E-07"
+        rpy="0 0 0" />
+      <mass
+        value="9.29095050009352" />
+      <inertia
+        ixx="0.077999199109174"
+        ixy="8.56130155699341E-08"
+        ixz="-6.49197155294963E-08"
+        iyy="0.0779994022144446"
+        iyz="3.11134456386524E-08"
+        izz="0.141038012060605" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/wheel.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/wheel_collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front_left_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0.346705600000391 0.220461599999979 0.192698999994082"
+      rpy="1.5707963267949 0 3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="front_left_wheel_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="rear_left_wheel_link">
+    <inertial>
+      <origin
+        xyz="0.0104939997423719 -2.46671275627719E-08 -8.1152101194526E-07"
+        rpy="0 0 0" />
+      <mass
+        value="9.2909516137841" />
+      <inertia
+        ixx="0.0779992076350521"
+        ixy="-1.76237805766561E-07"
+        ixz="-6.01725126074113E-08"
+        iyy="0.0779994012125733"
+        iyz="4.24829097070305E-08"
+        izz="0.141038091336861" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/wheel.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/wheel_collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rear_left_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.336220421928199 0.220461599999979 0.192698999996989"
+      rpy="1.5707963267949 0 3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="rear_left_wheel_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="rear_hitch">
+    <inertial>
+      <origin
+        xyz="-0.20047642005249 0.0992762454047667 0.00630690460767491"
+        rpy="0 0 0" />
+      <mass
+        value="0.0382594249641365" />
+      <inertia
+        ixx="0.00122144494791991"
+        ixy="-0.00309986432443379"
+        ixz="-0.00022929787013827"
+        iyy="0.00811623114253835"
+        iyz="8.84446780105338E-05"
+        izz="0.00931281508256767" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/rear_hitch_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.501960784313725 0.501960784313725 0.501960784313725 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/rear_hitch.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rear_hitch_joint"
+    type="fixed">
+    <origin
+      xyz="-0.529276899999992 0 0.106974000000922"
+      rpy="1.5707963267949 0 3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="rear_hitch" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="front_hitch">
+    <inertial>
+      <origin
+        xyz="-0.0255283438432403 -0.00483377686041919 3.28936456480688E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.0309630268251394" />
+      <inertia
+        ixx="1.66726173078461E-05"
+        ixy="1.30106479860367E-05"
+        ixz="-1.68318432418237E-09"
+        iyy="2.38561420519754E-05"
+        iyz="3.01196503024087E-09"
+        izz="2.87221288336308E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/front_hitch_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.501960784313725 0.501960784313725 0.501960784313725 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/front_hitch.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front_hitch_joint"
+    type="fixed">
+    <origin
+      xyz="0.529268100000008 0 0.106974000000921"
+      rpy="1.5707963267949 0.726642340681728 3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="front_hitch" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <link
+    name="top_plate_link">
+    <inertial>
+      <origin
+        xyz="0.166045779401684 0.0198106618980884 -7.28961335738632E-12"
+        rpy="0 0 0" />
+      <mass
+        value="6.097287505506" />
+      <inertia
+        ixx="0.0640563672285379"
+        ixy="0.0224573328287316"
+        ixz="-6.36660956691983E-12"
+        iyy="0.579302604051989"
+        iyz="-3.55241745328661E-13"
+        izz="0.525137358822308" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://boost_urdf/boost_stalker/meshes/top_plate_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <!--color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" /-->
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/top_plate_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="top_plate_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0.448349999999995"
+      rpy="1.5707963267949 0 3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="top_plate_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <link
+    name="t_vistor_mount_link">
+    <inertial>
+      <origin
+        xyz="0.0210018085981626 0.0428275057942558 -6.46018794014935E-11"
+        rpy="0 0 0" />
+      <mass
+        value="0.170233544485839" />
+      <inertia
+        ixx="0.00149699766042861"
+        ixy="8.7802786389254E-05"
+        ixz="1.38417823427198E-14"
+        iyy="0.00116231002103179"
+        iyz="-1.18563987723532E-14"
+        izz="0.000516346180291777" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/tvistor_mount_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/t_vistor_mount_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="t_vistor_mount_joint"
+    type="fixed">
+    <origin
+      xyz="-0.640305599997811 -0.0973499999909998 0"
+      rpy="0 0 0" />
+    <parent
+      link="top_plate_link" />
+    <child
+      link="t_vistor_mount_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="tvistor_link">
+    <inertial>
+      <origin
+        xyz="-0.0275345092031654 -0.00160555480048852 6.6337958681828E-08"
+        rpy="0 0 0" />
+      <mass
+        value="1.07643932811041" />
+      <inertia
+        ixx="0.00314527344493947"
+        ixy="-1.14731170860738E-06"
+        ixz="2.40809545320931E-09"
+        iyy="0.00316248878097464"
+        iyz="2.26420831813397E-09"
+        izz="0.00113528805201779" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/tvistor_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0.513725490196078 0.76078431372549 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/tvistor_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="tvistor_joint"
+    type="fixed">
+    <origin
+      xyz="-0.0243292000117975 -0.054599999988 0"
+      rpy="3.14159265358979 -5.55111512312578E-17 3.14159265358979" />
+    <parent
+      link="t_vistor_mount_link" />
+    <child
+      link="tvistor_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="front_cam_pivot_link">
+    <inertial>
+      <origin
+        xyz="0.0163047502454675 4.28844765795189E-05 0.0232525129657395"
+        rpy="0 0 0" />
+      <mass
+        value="0.0659206432697871" />
+      <inertia
+        ixx="3.81991938572827E-05"
+        ixy="2.32396995653142E-06"
+        ixz="-1.12804402992129E-09"
+        iyy="3.95528007653458E-05"
+        iyz="-5.31674741724361E-09"
+        izz="3.10461743601134E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/front_cam_pivot_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/front_cam_pivot_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front_cam_pivot_joint"
+    type="fixed">
+    <origin
+      xyz="-0.631811340456011 0.0150628868668 -0.0232640992778246"
+      rpy="0 0 0" />
+    <parent
+      link="top_plate_link" />
+    <child
+      link="front_cam_pivot_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="front_camera_mount_link">
+    <inertial>
+      <origin
+        xyz="-0.0122711559003035 0.0259438752086979 7.89438403536735E-10"
+        rpy="0 0 0" />
+      <mass
+        value="0.0561720883223991" />
+      <inertia
+        ixx="2.99772461012883E-05"
+        ixy="3.28857981722111E-06"
+        ixz="1.69608871788543E-12"
+        iyy="3.5374612252582E-05"
+        iyz="-4.39543215103025E-12"
+        izz="2.69861890868807E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/front_camera_mount_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.250980392156863 0.250980392156863 0.250980392156863 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/front_camera_mount_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="front_camera_mount_joint"
+    type="fixed">
+    <origin
+      xyz="0.0206807151630958 0.0220370899558678 0.023283149268"
+      rpy="0 0 0" />
+    <parent
+      link="front_cam_pivot_link" />
+    <child
+      link="front_camera_mount_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="front_camera_link">
+    <inertial>
+      <origin
+        xyz="-0.0789676958349036 0 0.00114579675166504"
+        rpy="0 0 0" />
+      <mass
+        value="0.911279093331837" />
+      <inertia
+        ixx="0.000829846887364654"
+        ixy="2.71894717403235E-20"
+        ixz="-1.59994102863446E-06"
+        iyy="0.00249201875231923"
+        iyz="1.3473700485517E-19"
+        izz="0.00263670680923689" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/front_camera_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/front_camera_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="front_camera_joint"
+    type="fixed">
+    <origin
+      xyz="-0.077693734265045 0.0512582639036014 -1.90500000000204E-05"
+      rpy="3.14159265358979 -2.23103700433459E-16 -2.69978610369914" />
+    <parent
+      link="front_camera_mount_link" />
+    <child
+      link="front_camera_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <link
+    name="upper_assembly_structure_link">
+    <inertial>
+      <origin
+        xyz="-0.0198119086520914 0.550592999298068 8.46101794316212E-06"
+        rpy="0 0 0" />
+      <mass
+        value="17.9356053236091" />
+      <inertia
+        ixx="3.05192824788009"
+        ixy="-0.228171614871807"
+        ixz="-0.000349900242648201"
+        iyy="0.222819859909932"
+        iyz="8.91363936585737E-06"
+        izz="3.16821116259682" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/upper_assembly_structure_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/upper_assembly_structure_link_collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="upper_assembly_structure_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="3.14159265358979 0 3.14159265358979" />
+    <parent
+      link="top_plate_link" />
+    <child
+      link="upper_assembly_structure_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <link
+    name="arm_carriage_link">
+    <inertial>
+      <origin
+        xyz="0.0331265930169365 0.00674494231366185 -0.000679300600728627"
+        rpy="0 0 0" />
+      <mass
+        value="0.267830617404445" />
+      <inertia
+        ixx="0.00097407281158407"
+        ixy="6.71211698097618E-05"
+        ixz="-4.04985339908033E-06"
+        iyy="0.00020542898429928"
+        iyz="-8.16333158265119E-06"
+        izz="0.000888813455380478" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/arm_carriage_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/arm_carriage_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="X-00022"
+    type="prismatic">
+    <origin
+      xyz="-0.092504400007399 0.387 0"
+      rpy="3.14159265358979 0 3.14159265358979" />
+    <parent
+      link="upper_assembly_structure_link" />
+    <child
+      link="arm_carriage_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit effort="400.0" lower="-1" upper="0" velocity="0.1" />
+    <dynamics damping="100.0" />
+  </joint>
+
+  <link
+    name="arm_pan1_link">
+    <inertial>
+      <origin
+        xyz="0.180038341849215 0.0064796581882125 0.000517581092536579"
+        rpy="0 0 0" />
+      <mass
+        value="0.734550421195934" />
+      <inertia
+        ixx="0.000380966877947081"
+        ixy="0.000475979108587925"
+        ixz="2.39386196933901E-05"
+        iyy="0.00833965048065653"
+        iyz="8.05640519804777E-06"
+        izz="0.00824696696308519" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/arm_pan1_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/arm_pan1_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+<!--   <joint
+    name="arm_pan1_joint"
+    type="revolute"> -->
+<!-- rpy="-1.83168476121443E-17 -1.26404976456694 1.92137247372916E-17" --> 
+  <joint
+    name="X-00021"
+    type="revolute">
+    <origin
+      xyz="0.0769999999920841 0.115750000014332 0.00200000000075296"
+      py="0 0 0" />
+    <parent
+      link="arm_carriage_link" />
+    <child
+      link="arm_pan1_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit effort="25" lower="-2" upper="2.27" velocity="2.27" />
+  </joint>
+
+  <link
+    name="arm_pan2_link">
+    <inertial>
+      <origin
+        xyz="0.118854626152906 6.99151847527446E-12 -6.07681682751604E-11"
+        rpy="0 0 0" />
+      <mass
+        value="0.458546090402944" />
+      <inertia
+        ixx="0.000175170468492306"
+        ixy="5.69084844308929E-13"
+        ixz="-4.79945206332806E-12"
+        iyy="0.00347769484362011"
+        iyz="-1.72244093675854E-12"
+        izz="0.00335417734140748" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/arm_pan2_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.890196078431373 0.909803921568627 0.925490196078431 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/arm_pan2_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+<!--   <joint
+    name="arm_pan2_joint"
+    type="revolute"> -->
+<!--           rpy="3.14159265358979 0.231343894493868 3.14159265358979" /> -->
+  <joint
+    name="X-00023"
+    type="revolute">
+    <origin
+      xyz="0.296999999997768 0.0564499999999977 0"
+      rpy="0 0 0" />
+    <parent
+      link="arm_pan1_link" />
+    <child
+      link="arm_pan2_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit effort="25" lower="-2" upper="2.27" velocity="2.27" />
+  </joint>
+
+  <link
+    name="right_finger_link">
+    <inertial>
+      <origin
+        xyz="0.048732178806647 -7.83882701638206E-07 -0.00431091188731692"
+        rpy="0 0 0" />
+      <mass
+        value="0.00928515995062525" />
+      <inertia
+        ixx="8.39030223925051E-07"
+        ixy="2.87952385239446E-17"
+        ixz="-1.96892132646933E-06"
+        iyy="1.87944866614915E-05"
+        iyz="3.46386064692955E-16"
+        izz="1.80178257728228E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/right_finger_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/right_finger_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_finger_joint"
+    type="fixed">
+    <origin
+      xyz="0.2627199999954 0.000795317772076087 0.0257499999999987"
+      rpy="3.8083059501621E-18 -0.261799387799149 -3.37770596272038E-17" />
+    <parent
+      link="arm_pan2_link" />
+    <child
+      link="right_finger_link" />
+    <axis
+      xyz="0 1 0" />
+        <limit effort="25" lower="-2" upper="2.27" velocity="2.27" />
+  </joint>
+
+  <link
+    name="left_finger_link">
+    <inertial>
+      <origin
+        xyz="0.0487321788060534 7.83882701638206E-07 0.00431091188727989"
+        rpy="0 0 0" />
+      <mass
+        value="0.00928515995063241" />
+      <inertia
+        ixx="8.39030223905369E-07"
+        ixy="-2.76446667756763E-17"
+        ixz="1.96892132642568E-06"
+        iyy="1.87944866615238E-05"
+        iyz="3.46648451482421E-16"
+        izz="1.80178257728748E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/left_finger_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/left_finger_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_finger_joint"
+    type="fixed">
+    <origin
+      xyz="0.262719999995399 0.000793749999999926 -0.0257500000000005"
+      rpy="-1.26943531672069E-18 0.261799387799146 -2.39676167694121E-17" />
+    <parent
+      link="arm_pan2_link" />
+    <child
+      link="left_finger_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit effort="25" lower="-2" upper="2.27" velocity="2.27" />
+  </joint>
+
+  <link
+    name="GPS_mount_link">
+    <inertial>
+      <origin
+        xyz="-0.0185766948331801 0.281778146659437 4.00203020689549E-06"
+        rpy="0 0 0" />
+      <mass
+        value="0.594461886279983" />
+      <inertia
+        ixx="0.0138387634752938"
+        ixy="-0.00105494687989261"
+        ixz="3.38060673136346E-08"
+        iyy="0.000868873146550097"
+        iyz="2.44923425808277E-07"
+        izz="0.0135978614840191" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/GPS_mount_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.686274509803922 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/GPS_mount_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="GPS_mount_joint"
+    type="fixed">
+    <origin
+      xyz="0.0312380406628981 1.1186 0.000245200042999882"
+      rpy="0 0 0" />
+    <parent
+      link="upper_assembly_structure_link" />
+    <child
+      link="GPS_mount_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <link
+    name="GPS_link">
+    <inertial>
+      <origin
+        xyz="-9.59068814036512E-05 -0.00461526801638357 -4.74960331720009E-06"
+        rpy="0 0 0" />
+      <mass
+        value="1.33714546618312" />
+      <inertia
+        ixx="0.00245948560917257"
+        ixy="-8.02125105064524E-06"
+        ixz="-5.51162958709582E-07"
+        iyy="0.00369183498314222"
+        iyz="5.4627478041151E-08"
+        izz="0.00247276512757786" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/GPS_LINK.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/GPS_collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="GPS_joint"
+    type="fixed">
+    <origin
+      xyz="-0.04445 0.503486000011 0"
+      rpy="0 0 0" />
+    <parent
+      link="GPS_mount_link" />
+    <child
+      link="GPS_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <link
+    name="rear_camera_pivot_link">
+    <inertial>
+      <origin
+        xyz="-0.0163047502454676 4.28844765795189E-05 -0.0232525129657396"
+        rpy="0 0 0" />
+      <mass
+        value="0.065920643269787" />
+      <inertia
+        ixx="3.81991938572827E-05"
+        ixy="-2.3239699565314E-06"
+        ixz="-1.12804402990798E-09"
+        iyy="3.95528007653457E-05"
+        iyz="5.31674741725855E-09"
+        izz="3.10461743601134E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/rear_camera_pivot_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/rear_camera_pivot_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rear_camera_pivot_joint"
+    type="fixed">
+    <origin
+      xyz="0.631439140483875 0.0150628868668 0.0232513992581757"
+      rpy="0 0 0" />
+    <parent
+      link="top_plate_link" />
+    <child
+      link="rear_camera_pivot_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="rear_camera_mount_link">
+    <inertial>
+      <origin
+        xyz="0.00688938132725214 0.0267193726903275 -1.27007894422659E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.0561722143025618" />
+      <inertia
+        ixx="2.89522803839876E-05"
+        ixy="-2.05699536866596E-06"
+        ixz="8.64715571488455E-13"
+        iyy="3.63996928980509E-05"
+        iyz="4.69116969244989E-12"
+        izz="2.69863019902409E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/rear_camera_mount_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.250980392156863 0.250980392156863 0.250980392156863 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/rear_camera_mount_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rear_camera_mount_joint"
+    type="fixed">
+    <origin
+      xyz="-0.01982671487886 0.0230371131240523 -0.0232323492680002"
+      rpy="0 0 0" />
+    <parent
+      link="rear_camera_pivot_link" />
+    <child
+      link="rear_camera_mount_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="rear_camera_link">
+    <inertial>
+      <origin
+        xyz="-0.0789676958349036 0 0.00114579675166537"
+        rpy="0 0 0" />
+      <mass
+        value="0.911279093331838" />
+      <inertia
+        ixx="0.000829846887364654"
+        ixy="-3.52335922068989E-19"
+        ixz="-1.59994102863358E-06"
+        iyy="0.00249201875231922"
+        iyz="-2.18161258044207E-19"
+        izz="0.00263670680923688" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/rear_camera_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/rear_camera_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rear_camera_joint"
+    type="fixed">
+    <origin
+      xyz="0.0663738709816377 0.0639018134723804 -1.90500000002425E-05"
+      rpy="-3.72313582396761E-17 1.44395641318464E-16 -0.252346273887008" />
+    <parent
+      link="rear_camera_mount_link" />
+    <child
+      link="rear_camera_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="base_com_antenna_link">
+    <inertial>
+      <origin
+        xyz="0.0295935215090849 0.0735788830905294 2.22044604925031E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.730669360754948" />
+      <inertia
+        ixx="0.00830042374942395"
+        ixy="-0.000836391158791263"
+        ixz="-1.18492585334055E-18"
+        iyy="0.00272662066627702"
+        iyz="-1.36162917149471E-10"
+        izz="0.0105607685983921" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/base_com_antenna_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/base_com_antenna_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="base_com_antenna_joint"
+    type="fixed">
+    <origin
+      xyz="-0.26980439999963 0 0.0906962999999986"
+      rpy="0 0 0" />
+    <parent
+      link="top_plate_link" />
+    <child
+      link="base_com_antenna_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="rear_laser_link">
+    <inertial>
+      <origin
+        xyz="-0.00056843582232291 0.0415777657231922 4.41424674590962E-12"
+        rpy="0 0 0" />
+      <mass
+        value="0.1658496395329" />
+      <inertia
+        ixx="8.0660861292681E-05"
+        ixy="2.93063125865661E-06"
+        ixz="-6.63921193579201E-21"
+        iyy="0.000102086366786423"
+        iyz="-6.07757442365345E-21"
+        izz="7.64928923516929E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/rear_laser_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.709803921568627 0.709803921568627 0.654901960784314 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/rear_laser_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rear_laser_joint"
+    type="fixed">
+    <origin
+      xyz="0.594620011181589 -0.0828269958138211 0"
+      rpy="0 0 -0.418879020841367" />
+    <parent
+      link="top_plate_link" />
+    <child
+      link="rear_laser_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="estop_link">
+    <inertial>
+      <origin
+        xyz="-1.11022302462516E-16 0.00803870905946724 -1.11022302462516E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.0107513102163432" />
+      <inertia
+        ixx="7.83540328480105E-07"
+        ixy="-9.28571629499234E-22"
+        ixz="1.92070791273655E-12"
+        iyy="9.89192915128792E-07"
+        iyz="1.8490457975228E-21"
+        izz="7.83578229534738E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/estop_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/estop_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="estop_joint"
+    type="fixed">
+    <origin
+      xyz="0.32806294678938 0.0871500000052998 -6.39880788364522E-05"
+      rpy="0 0 0" />
+    <parent
+      link="top_plate_link" />
+    <child
+      link="estop_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <link
+    name="buttons_link">
+    <inertial>
+      <origin
+        xyz="-0.115878379768029 -0.0547074741349559 0.0252310548033555"
+        rpy="0 0 0" />
+      <mass
+        value="0.0936330431893919" />
+      <inertia
+        ixx="0.000488915665331863"
+        ixy="1.96835045496582E-05"
+        ixz="-4.22867898768243E-05"
+        iyy="0.00100391218157255"
+        iyz="-5.40288379602122E-06"
+        izz="0.000581165646658898" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/buttons_link.DAE" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/buttons_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="buttons_joint"
+    type="fixed">
+    <origin
+      xyz="0.349108306525943 0.092955891625189 0.1148099964866"
+      rpy="0 -1.57079631189374 0" />
+    <parent
+      link="top_plate_link" />
+    <child
+      link="buttons_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+
+  <!--link
+    name="multisense/head">
+    <visual>
+      <origin
+        xyz="-0.03 -0.0625 -0.032" 
+        rpy="1.57079632679 0 1.57079632679" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/multisense.DAE" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://boost_urdf/boost_stalker/meshes/multisense.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="multisense_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="top_plate_link" />
+    <child
+      link="multisense/head" />
+    <axis
+      xyz="0 0 0" />
+  </joint-->
+
+
+	<!--
+	<joint name="$multisense/left_camera_joint" type="fixed">
+		<origin xyz="0.052 0.035 0.0"/>
+		<parent link="$multisense/head"/>
+		<child link="$multisense/left_camera_frame"/>
+	</joint>
+
+	<link name="$multisense/left_camera_frame"/>
+
+	<joint name="$multisense/right_camera_joint" type="fixed">
+		<origin xyz="0.052 -0.035 0.0"/>
+		<parent link="$multisense/head"/>
+		<child link="$multisense/right_camera_frame"/>w
+	</joint>
+
+	<link name="$multisense/right_camera_frame"/>
+
+	<joint name="$multisense/left_camera_optical_joint" type="fixed">
+		<origin xyz="0 0 0" rpy="-1.57079632679 0.0 -1.57079632679"/>
+		<parent link="$multisense/left_camera_frame"/>
+		<child link="$multisense/left_camera_optical_frame"/>
+	</joint>
+
+	<link name="$multisense/left_camera_optical_frame"/>
+
+	<joint name="$multisense/right_camera_optical_joint" type="fixed">
+		<origin xyz="0 0 0" rpy="-1.57079632679 0.0 -1.57079632679"/>
+		<parent link="$multisense/right_camera_frame"/>
+		<child link="$multisense/right_camera_optical_frame"/>
+	</joint>
+
+	<link name="$multisense/right_camera_optical_frame"/>
+	-->
+
+</robot>"

@@ -1,0 +1,3 @@
+int64 image_index
+---
+sensor_msgs/Image image_process_resp

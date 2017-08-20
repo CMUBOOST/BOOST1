@@ -1,0 +1,12 @@
+<package>
+  <description brief="multisense_cal_check">
+
+     multisense_cal_check
+
+  </description>
+
+  <depend package="multisense_ros"/>
+
+</package>
+
+
